@@ -19,4 +19,6 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes        # Rotary Encoder support
 LTO_ENABLE = yes 			# Link time optimization to reduce firmware size
-# SRC = matrix.c            # Needed for custom matrix scan
+TAP_DANCE_ENABLE = yes      # Enable tap dance feature
+
+SRC = tap_dance.c            # Needed for custom matrix scan
