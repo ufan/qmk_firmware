@@ -24,6 +24,7 @@
 /* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
+/* RGB light */
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 18
 #define RGBLIGHT_HUE_STEP 8
@@ -35,24 +36,11 @@
 /* #define RGBLIGHT_ANNIMATION */
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
 
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 20
-
 /* ENCODER THINGS */
-// #define ENCODER_DIRECTION_FLIP
-/* #define ENCODER_RESOLUTION 4 */
 #define ENCODERS_PAD_A \
     { B4, B5 }
 #define ENCODERS_PAD_B \
     { B2, B6 }
-
-/* Tap Dance timing */
-#define TAPPING_TERM 200
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
 
 /* Bootmagic lite key */
 #define BOOTMAGIC_LITE_ROW 0
