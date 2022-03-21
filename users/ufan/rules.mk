@@ -11,5 +11,10 @@ COMMAND_ENABLE = no         # Commands for debug and configuration
 
 LTO_ENABLE = yes 			# Link time optimization to reduce firmware size
 
+ifeq ($(strip $(FLASH_BOOTLOADER)), yes)
+    OPT_DEFS += -DFLASH_BOOTLOADER
+endif
+
 # Extra sources
 SRC += $(USER_PATH)/ufan.c \
+       $(USER_PATH)/tapdance_common.c \

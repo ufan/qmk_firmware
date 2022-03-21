@@ -1,0 +1,71 @@
+* Anatomy
+Core directory: [[file:~/src/qmk_firmware/quantum/][quantum]]
+
+** Runtime Sequence
+*** Setup
+- platform :: Nothing implemented now, just placeholder for future use
+- protocol :: underlying core for USB UART communication with Host, adapted from [[file:~/src/qmk_firmware/tmk_core/][tmk]]
+- keyboard :: keyboard hardware related like mouse, rgb, led, tap dance, audio etc.
+*** Init
+- protocol
+  - protocol pre init
+  - keyboard init
+  - protocol post init
+****** Main loop
+- protocol
+  - protocol pre task
+  - keyboard task :: major customization/callback occurs here
+    - [[file:~/src/qmk_firmware/quantum/keyboard.c::bool matrix_scan_task(void) {][matrix_scan_task]] (any key changes are sent out as part of the procesing)
+      1. matrix_scan ::
+         - get a matrix of keys which has changed state from last scan
+      2. action loop for these changed keys ([[file:~/src/qmk_firmware/quantum/action.c::void action_exec(keyevent_t event) {][action_exec]])
+         * compose a keyevent for each pressed key ([[file:~/src/qmk_firmware/quantum/keyboard.c::action_exec((keyevent_t){][link]])
+           - keyevent structure :: key position (col, row), press flag, time
+         * take actions on this event
+           - compose a keyrecord for complex scheme
+             like tap dance, auto shift, retro shift, swap hands etc.
+             - keyrecord structure :: keyevent + [tap] + [combo keycode]
+           - action_tapping_process :: default behavior to update tapping information.
+             if NO_TAPPING_ACTION defined, do process_record directly
+             - process_tapping :: various tapping related conditionals
+             - process_record ::
+               - process_record_quantum :: major customiztion/callback here
+                 - *preprocess_tap_dance*
+                 - process_key_lock
+                 - process_dynamic_macro
+                 - process_clicky
+                 - process_haptic
+                 - process_record_via
+                 - process_record_kb ::
+                   - process_record_user ::
+                 - process_sequencer
+                 - process_midi
+                 - process_audio
+                 - process_backlight
+                 - process_steno
+                 - process_music
+                 - process_key_override
+                 - *process_tap_dance*
+                 - process_unicode_common
+                 - process_leader
+                 - process_printer
+                 - process_auto_shift
+                 - process_dynamic_tapping_term
+                 - process_space_cadet
+                 - process_magic
+                 - process_grave_esc
+                 - process_joystick
+                 - process_programmable_button
+                 - ...
+                 - process_action_kb
+               - procss_record_handler ::
+                 - action_for_keycodes ::
+                 - process_action :: mod bits are updated here
+               - post_process_record_quantum ::
+    - quantum task
+      - music, audio, key_override,sequence, *tap_dance*, combo
+    - other task
+      - rgblight, led_matrix, rgb_matrix, backlight, encoder, oled etc.
+  - protocol post task
+- deferred exec (optional) :: empty by default
+- housekeeping :: empty by default

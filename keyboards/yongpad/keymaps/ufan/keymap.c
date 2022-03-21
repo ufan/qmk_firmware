@@ -8,51 +8,62 @@
 #include "ufan.h"
 
 /* Layouts  */
-enum layers { _NUM = 0, _ULT, _NAV, _PRG };
+enum layers { _NUM = 0, _ULT, _NAV, _PRG, _EXT};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUM] = LAYOUT(/* Numpad */
-                    TO(2), TO(3), LT(1, KC_P0), KC_P1, KC_P4, KC_P7,
-                    /* KC_PDOT,         KC_P2,   KC_P5,   KC_P8, */
-                    TD(TD_PDOT_TO2), KC_P2, KC_P5, KC_P8,
-                    /* KC_BSPC,         KC_P3,   KC_P6,   KC_P9, */
-                    TD(TD_BSPC_TO3), KC_P3, KC_P6, KC_P9,
-                    /* TD(TD_PLUS_EQL), KC_PMNS, KC_PAST, TD(TD_PLUS_NUMLCK) */
-                    TD(TD_PLUS_EQL), TD(TD_PMNS_TG3), TD(TD_PAST_TG2), TD(TD_PLUS_NUMLCK)),
+                    TO(0),         MY_PASS_PC,
+                    LT(1, KC_P0),  MYTD_L0_P1,   KC_P4,         KC_P7,
+                    KC_BSPC,       MYTD_L2_P2,   KC_P5,         KC_P8,
+                    KC_PDOT,       MYTD_L3_P3,   KC_P6,         KC_P9,
+                    MYTD_PLUS_EQL, MYTD_L4_PMNS, MYTD_PAST_PERC,MYTD_PSLS_NLCK),
 
     [_ULT] = LAYOUT(/* Utilities */
                     _______, _______,
-                    _______, MY_EMAIL_FOX, MY_PASS_PC, KC_ESC,
-                    QK_BOOT, MY_EMAIL_GOOGLE, MY_PASS_ROUTER, KC_SPC,
-                    RGB_MOD, MY_EMAIL_PRIVATE, MY_PASS_BITWARDEN, KC_EQL,
-                    RGB_TOG, MY_EMAIL_WORK, MY_PASS_GOOGLE, KC_ENT),
+                    _______, _______, MYTD_FOX_PC,         _______,
+                    QK_BOOT, _______, MYTD_GOOGLES,        _______,
+                    MY_MAKE, _______, MYTD_PRIVATE_ROUTER, _______,
+                    RGB_TOG, _______, MYTD_WORK_BITWARDEN, MYTD_ENT_ESC),
 
     [_NAV] = LAYOUT(/* Navigation */
-                    TO(0), TO(3),
-                    SWIN(KC_UP), C(KC_DOWN), C(KC_PGUP), C(KC_UP),
-                    SWIN(KC_DOWN), KC_MS_BTN5, C(KC_R), KC_MS_BTN4,
-                    SWIN(KC_LEFT), KC_PGDN, C(KC_PGDN), KC_PGUP,
-                    SWIN(KC_RGHT), C(KC_K), C(KC_W), MY_ALT_ESC),
+                    _______,     _______,
+                    EMACS_SPC_1, MYTD_L0_CDN,         MYTD_CPGUP_MBTN4, C(KC_UP),
+                    EMACS_SPC_2, MYTD_L2_SWDN_SWRGHT, MYTD_CR_CK_CW,    MYTD_SWUP_SWLEFT,
+                    EMACS_SPC_3, MYTD_L3_PGDN,        MYTD_CPGDN_MBTN5, KC_PGUP,
+                    EMACS_SPC_4, MYTD_ZOOM_BROWER,    MYTD_LWIN_ESC,    MY_ALT_ESC),
 
     [_PRG] = LAYOUT(/* Programming */
-                    TO(0), TO(2),
-                    KC_ASDN, KC_S, KC_T, KC_U,
-                    KC_ASUP, KC_S, KC_T, KC_U,
-                    KC_ASRP, KC_S, KC_T, KC_U,
-                    KC_ASTG, KC_S, KC_T, KC_U),
+                    _______, _______,
+                    KC_ASDN, MYTD_L0_SPC1, KC_T, KC_U,
+                    KC_ASUP, MYTD_L2_SPC2, KC_T, KC_U,
+                    KC_ASRP, MYTD_L3_SPC3, KC_T, KC_U,
+                    KC_ASTG, MYTD_L4_SPC4, KC_T, KC_U),
+
+    [_EXT] = LAYOUT(/* Extra for future usage */
+                    _______, _______,
+                    _______, MYTD_L0_A, _______, _______,
+                    _______, MYTD_L2_B, _______, _______,
+                    _______, MYTD_L3_C, _______, _______,
+                    _______, MYTD_L4_D, _______, TG(2)),
 };
 
 /* RGB Light Layers */
-#define HSV_LAYER1 128, 255, 30
-#define HSV_LAYER2 191, 128, 30
+#define HSV_LAYER1 128, 255, 10
+#define HSV_LAYER2 191, 128, 10
 
 const rgblight_segment_t PROGMEM my_default_layer[] = RGBLIGHT_LAYER_SEGMENTS({16, 2, HSV_OFF});
+/* const rgblight_segment_t PROGMEM my_default_layer[] = RGBLIGHT_LAYER_SEGMENTS({16, 2, HSV_LAYER1}); */
+const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 4, HSV_LAYER2});
+const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS({4, 4, HSV_LAYER2});
+const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS({8, 4, HSV_LAYER2});
+const rgblight_segment_t PROGMEM my_layer4_layer[] = RGBLIGHT_LAYER_SEGMENTS({12, 4, HSV_LAYER2});
 
-const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS({16, 2, HSV_LAYER1});
-const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS({0, 8, HSV_LAYER2});
-const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS({8, 8, HSV_LAYER2});
-
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(my_default_layer, my_layer1_layer, my_layer2_layer, my_layer3_layer);
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] =
+    RGBLIGHT_LAYERS_LIST(my_default_layer,
+                         my_layer1_layer,
+                         my_layer2_layer,
+                         my_layer3_layer,
+                         my_layer4_layer);
 
 void keyboard_post_init_user() {
     rgblight_layers = my_rgb_layers;
@@ -64,6 +75,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(1, layer_state_cmp(state, 1));
     rgblight_set_layer_state(2, layer_state_cmp(state, 2));
     rgblight_set_layer_state(3, layer_state_cmp(state, 3));
+    rgblight_set_layer_state(4, layer_state_cmp(state, 4));
     return state;
 }
 

@@ -13,6 +13,3 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 
 ENCODER_ENABLE = yes        # Rotary Encoder support
 TAP_DANCE_ENABLE = yes      # Enable tap dance feature
-
-# extra source file
-SRC += tapdance.c
