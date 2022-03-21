@@ -16,5 +16,8 @@ ifeq ($(strip $(FLASH_BOOTLOADER)), yes)
 endif
 
 # Extra sources
-SRC += $(USER_PATH)/ufan.c \
-       $(USER_PATH)/tapdance_common.c \
+SRC += $(USER_PATH)/ufan.c
+
+ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
+    SRC += $(USER_PATH)/tapdance_common.c
+endif

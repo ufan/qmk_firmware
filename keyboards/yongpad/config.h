@@ -35,6 +35,7 @@
 #define RGBLIGHT_LAYERS
 /* #define RGBLIGHT_ANNIMATION */
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+#define RGBLIGHT_SLEEP
 
 /* ENCODER THINGS */
 #define ENCODERS_PAD_A \
@@ -45,3 +46,6 @@
 /* Bootmagic lite key */
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 0
+
+/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+#define DEBOUNCE 5

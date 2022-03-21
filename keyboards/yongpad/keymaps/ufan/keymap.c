@@ -5,6 +5,7 @@
 #include "timer.h"
 #include QMK_KEYBOARD_H
 #include "yongpad.h"
+#include "tapdance.h"
 #include "ufan.h"
 
 /* Layouts  */
