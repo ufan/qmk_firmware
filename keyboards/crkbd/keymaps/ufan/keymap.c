@@ -17,22 +17,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "tapdance.h"
+#include "ufan.h"
+#include "g/keymap_combo.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  /* [0] = LAYOUT_split_3x6_3( */
+  /* //,-----------------------------------------------------.                    ,-----------------------------------------------------. */
+  /*   TD(ASTR_AT_TILD),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  TD(UNDS_HASH_PIPE), */
+  /* //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------| */
+  /*   KC_EQL,    KC_SLSH,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_QUOT, KC_SCLN, */
+  /* //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------| */
+  /*   TD(L_CBR_BRC_PRN) ,    KC_COMM,    KC_X,    KC_C,    KC_V,    KC_B,                KC_N,    KC_M, KC_A,  KC_Z, KC_DOT,  TD(R_CBR_BRC_PRN), */
+  /* //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------| */
+  /*                 LSFT_T(KC_LGUI), LALT_T(KC_ESC),  LT(2, KC_SPC),     LT(3, KC_ENT), LCTL_T(KC_BSPC),RSFT_T(KC_TAB) */
+  /*                                     //`--------------------------'  `--------------------------' */
+
+  /* ), */
+
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-                           TD(ASTR_AT_TILD),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  TD(UNDS_HASH_PIPE),
+    KC_EQL,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_MINS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_EQL,    KC_SLSH,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_QUOT, KC_SCLN,
+    KC_SLSH,    KC_SCLN,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_QUOT, KC_BSLS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      TD(L_CBR_BRC_PRN) ,    KC_COMM,    KC_X,    KC_C,    KC_V,    KC_B,                KC_N,    KC_M, KC_Z,  KC_A, KC_DOT,  TD(R_CBR_BRC_PRN),
+    KC_LCBR,    KC_COMM,    KC_X,    KC_C,    KC_V,    KC_B,                   KC_N,    KC_M, KC_A,  KC_Z, KC_DOT,  KC_RCBR,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-       LSFT_T(KC_LGUI), LALT_T(KC_PAST),  LT(2, KC_SPC),     LT(3, KC_ENT), LCTL_T(KC_UNDS),RSFT_T(KC_ESC)
+                  LSFT_T(KC_LPRN), LALT_T(KC_TAB),  LT(2, KC_SPC),     LT(3, KC_ENT), LCTL_T(KC_BSPC),RSFT_T(KC_RPRN)
                                       //`--------------------------'  `--------------------------'
 
   ),
-
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
@@ -81,9 +94,9 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 #define L_BASE 0
-#define L_LOWER 2
-#define L_RAISE 4
-#define L_ADJUST 8
+#define L_ADJUST 2
+#define L_LOWER 4
+#define L_RAISE 8
 
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
@@ -101,7 +114,7 @@ void oled_render_layer_state(void) {
         case L_ADJUST|L_LOWER:
         case L_ADJUST|L_RAISE:
         case L_ADJUST|L_LOWER|L_RAISE:
-            oled_write_ln_P(PSTR("Adjust"), false);
+            oled_write_ln_P(PSTR("Dvorak Layout"), false);
             break;
     }
 }
@@ -173,6 +186,21 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     set_keylog(keycode, record);
   }
+
+  switch (keycode) {
+  case LSFT_T(KC_LPRN):
+      if (record->tap.count && record->event.pressed) {
+          tap_code16(KC_LPRN);
+          return false;
+      }
+      break;
+  case RSFT_T(KC_RPRN):
+      if (record->tap.count && record->event.pressed) {
+          tap_code16(KC_RPRN);
+          return false;
+      }
+      break;
+    }
   return true;
 }
 #endif // OLED_ENABLE

@@ -1,0 +1,24 @@
+// name     result      chord_keys
+// right hand for commands
+COMB(JK_ESC,   KC_ESC,  KC_J, KC_K)
+COMB(WORD_FWD, A(KC_F), KC_M, KC_A)
+COMB(WORD_BKD, A(KC_B), KC_U, KC_I)
+COMB(LINE_BGN, C(KC_A), KC_H, KC_J)
+COMB(LINE_END, C(KC_E), KC_K, KC_L)
+COMB(OP_LGUI,  KC_LGUI, KC_O, KC_P)
+
+// left hand for punctuations
+COMB(TILD,   KC_TILD, KC_D, KC_F)
+COMB(AT,     KC_AT,   KC_E, KC_R)
+COMB(HASH,   KC_HASH, KC_C, KC_V)
+COMB(DOLLAR, KC_DLR,  KC_S, KC_D)
+COMB(ZERO,   KC_0,    KC_F, KC_G)
+
+// debug usage
+COMB(MAKE_FLASH, MY_MAKE, KC_T, KC_G)
+COMB(CLEAR_EEPROM, QK_CLEAR_EEPROM, KC_T, KC_B)
+COMB(BOOTLOADER,   QK_BOOTLOADER,   KC_G, KC_B)
+
+// others
+SUBS(PC_PASS,   "ufan2129_zhouyong", KC_X, KC_COMM)
+SUBS(BITWARDEN, "Ufan@Bitw_0532",    KC_Z, KC_DOT)
