@@ -39,8 +39,8 @@ COMB(ASRP,      KC_ASRP,                KC_LBRC,         KC_EQL)
 COMB(ASTG,      KC_ASTG,                KC_Q,            KC_EQL)
 
 // layer toggle
-COMB(TG_L1,     TG(1),       LT(2, KC_SPC),   LT(3, KC_ENT))
-COMB(TG_L2,     TG(2),       LALT_T(KC_TAB),  LCTL_T(KC_BSPC))
+COMB(TG_L1,     TG(1),       LALT_T(KC_SPC),  LCTL_T(KC_ENT))
+COMB(TG_L2,     TG(2),       LT(2, KC_TAB),   LT(3, KC_BSPC))
 COMB(TG_L3,     TG(3),       LSFT_T(KC_LPRN), RSFT_T(KC_RPRN))
 
 // others
@@ -51,7 +51,7 @@ SUBS(BITWARDEN, "Ufan@Bitw_0532",    KC_Z, KC_DOT)
 COMB(CAPS_LOCK, KC_CAPS,     KC_Q,            KC_W)
 
 // spacemacs
-COMB(SPC1,      EMACS_SPC_1, LT(2,KC_SPC),  KC_M)
-COMB(SPC2,      EMACS_SPC_2, LT(2,KC_SPC),  KC_A)
-COMB(SPC3,      EMACS_SPC_3, LT(2,KC_SPC),  KC_Z)
-COMB(SPC4,      EMACS_SPC_4, LT(2,KC_SPC),  KC_J)
+COMB(SPC1,      EMACS_SPC_1, LT(2,KC_TAB),  KC_M)
+COMB(SPC2,      EMACS_SPC_2, LT(2,KC_TAB),  KC_A)
+COMB(SPC3,      EMACS_SPC_3, LT(2,KC_TAB),  KC_Z)
+COMB(SPC4,      EMACS_SPC_4, LT(2,KC_TAB),  KC_J)
