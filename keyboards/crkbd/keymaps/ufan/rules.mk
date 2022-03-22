@@ -7,6 +7,10 @@ LTO_ENABLE      = yes
 LAYOUTS = split_3x6_3
 
 TAP_DANCE_ENABLE = yes
+AUTO_SHIFT_ENABLE = yes
+LEADER_ENABLE = yes
 
 # extra source file
+ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 SRC += tapdance.c
+endif

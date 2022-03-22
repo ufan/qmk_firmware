@@ -15,10 +15,7 @@ td_state_t cur_dance(qk_tap_dance_state_t *state) {
         else if (state->pressed) return TD_DOUBLE_HOLD;
         else return TD_DOUBLE_TAP;
     }
-    if (state->count == 3) {
-        if (state->interrupted || !state->pressed) return TD_TRIPLE_TAP;
-        else return TD_TRIPLE_HOLD;
-    } else return TD_UNKNOWN;
+    else return TD_UNKNOWN;
 }
 
 /* standard */
@@ -80,7 +77,8 @@ void mytd_reset(qk_tap_dance_state_t *state, void *user_data)
 }
 
 
-/* NEW TEST */
+/* Layer switch */
+#ifndef NO_LAYERSWICH_TAPDANCE
 void mytd_layerswitch_each_tap(qk_tap_dance_state_t *state, void *user_data)
 {
 }
@@ -130,3 +128,4 @@ void mytd_layerswitch_reset(qk_tap_dance_state_t *state, void *user_data)
     }
     xtap_state.state = TD_NONE;
 }
+#endif

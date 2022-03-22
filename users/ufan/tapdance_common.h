@@ -15,8 +15,6 @@ typedef enum {
     TD_DOUBLE_TAP,
     TD_DOUBLE_SINGLE_TAP, // Send two single taps
     TD_DOUBLE_HOLD,
-    TD_TRIPLE_TAP,
-    TD_TRIPLE_HOLD,
     TD_UNKNOWN
 } td_state_t;
 
@@ -46,7 +44,8 @@ void mytd_reset(qk_tap_dance_state_t *state, void *user_data);
     {.fn = {mytd_each_tap, mytd_finished, mytd_reset}                   \
             , .user_data = (void*)&((mytd_keypair_t){kc1, kc2, kc3})}
 
-/* NEW TEST */
+/* Layer Switch */
+#ifndef NO_LAYERSWICH_TAPDANCE
 typedef struct {
     uint16_t kc1; // single-tap
     uint16_t kc2;
@@ -61,5 +60,4 @@ void mytd_layerswitch_reset(qk_tap_dance_state_t *state, void *user_data);
 #define MY_TDLAYER_MOVE_ACTION(kc1, kc2, layer)                          \
     {.fn = {mytd_layerswitch_each_tap, mytd_layerswitch_finished, mytd_layerswitch_reset}\
             , .user_data = (void*)&((mytd_layerswitch_keypair_t){kc1, kc2, layer, layer_move})}
-
-/* Layer switch for macro keycode */
+#endif
