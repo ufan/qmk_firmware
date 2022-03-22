@@ -29,3 +29,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_LAYERSWICH_TAPDANCE
 
 #define COMBO_ONLY_FROM_LAYER 0
+#define AUTO_SHIFT_TIMEOUt    140

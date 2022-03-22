@@ -1,11 +1,18 @@
 // name     result      chord_keys
 // right hand for commands
-COMB(JK_ESC,   KC_ESC,  KC_J, KC_K)
-COMB(WORD_FWD, A(KC_F), KC_M, KC_A)
-COMB(WORD_BKD, A(KC_B), KC_U, KC_I)
-COMB(LINE_BGN, C(KC_A), KC_H, KC_J)
-COMB(LINE_END, C(KC_E), KC_K, KC_L)
-COMB(OP_LGUI,  KC_LGUI, KC_O, KC_P)
+COMB(JK_ESC,     KC_ESC,     KC_J, KC_K)
+COMB(WORD_FWD,   A(KC_F),    KC_M, KC_A)
+COMB(WORD_BKD,   A(KC_B),    KC_U, KC_I)
+COMB(LINE_BGN,   C(KC_A),    KC_H, KC_J)
+COMB(LINE_END,   C(KC_E),    KC_K, KC_L)
+COMB(ARROW_UP,   KC_UP,      KC_U, KC_I)
+COMB(ARROW_DOWN, KC_DOWN,    KC_M, KC_A)
+COMB(PG_UP,      KC_PGUP,    KC_Y, KC_U)
+COMB(PG_DOWN,    KC_PGDN,    KC_N, KC_M)
+
+COMB(OP_LGUI,    KC_LGUI,    KC_O, KC_P)
+COMB(WKSPC_UP,   C(KC_UP),   KC_O, KC_I)
+COMB(WKSPC_DOWN, C(KC_DOWN), KC_A, KC_Z)
 
 // left hand for punctuations
 COMB(TILD,   KC_TILD, KC_D, KC_F)
@@ -14,11 +21,37 @@ COMB(HASH,   KC_HASH, KC_C, KC_V)
 COMB(DOLLAR, KC_DLR,  KC_S, KC_D)
 COMB(ZERO,   KC_0,    KC_F, KC_G)
 
-// debug usage
+// browser navigation
+COMB(TAB_FWD, C(KC_PGDN), KC_W, KC_E)
+COMB(TAB_BKD, C(KC_PGUP), KC_X, KC_C)
+COMB(HISTORY_BKD, KC_MS_BTN4, KC_R, KC_T)
+COMB(HISTORY_FWD, KC_MS_BTN5, KC_V, KC_B)
+
+// reset and flash usage
 COMB(MAKE_FLASH, MY_MAKE, KC_T, KC_G)
 COMB(CLEAR_EEPROM, QK_CLEAR_EEPROM, KC_T, KC_B)
 COMB(BOOTLOADER,   QK_BOOTLOADER,   KC_G, KC_B)
 
+// auto-shift adjust
+COMB(ASDN,      KC_ASDN,                KC_SLSH,         KC_LBRC)
+COMB(ASUP,      KC_ASUP,                KC_SLSH,         KC_EQL)
+COMB(ASRP,      KC_ASRP,                KC_LBRC,         KC_EQL)
+COMB(ASTG,      KC_ASTG,                KC_Q,            KC_EQL)
+
+// layer toggle
+COMB(TG_L1,     TG(1),       LT(2, KC_SPC),   LT(3, KC_ENT))
+COMB(TG_L2,     TG(2),       LALT_T(KC_TAB),  LCTL_T(KC_BSPC))
+COMB(TG_L3,     TG(3),       LSFT_T(KC_LPRN), RSFT_T(KC_RPRN))
+
 // others
 SUBS(PC_PASS,   "ufan2129_zhouyong", KC_X, KC_COMM)
 SUBS(BITWARDEN, "Ufan@Bitw_0532",    KC_Z, KC_DOT)
+
+// test
+COMB(CAPS_LOCK, KC_CAPS,     KC_Q,            KC_W)
+
+// spacemacs
+COMB(SPC1,      EMACS_SPC_1, LT(2,KC_SPC),  KC_M)
+COMB(SPC2,      EMACS_SPC_2, LT(2,KC_SPC),  KC_A)
+COMB(SPC3,      EMACS_SPC_3, LT(2,KC_SPC),  KC_Z)
+COMB(SPC4,      EMACS_SPC_4, LT(2,KC_SPC),  KC_J)
