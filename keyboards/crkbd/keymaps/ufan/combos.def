@@ -78,3 +78,4 @@ COMB(ASRP,      KC_ASRP,                KC_LBRC,         KC_EQL)
 COMB(ASTG,      KC_ASTG,                KC_X,            KC_C)
 
 //// Debug ////
+COMB(CAPS_WORD, KC_NO, KC_LBRC, KC_RBRC)

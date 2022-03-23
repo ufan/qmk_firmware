@@ -25,7 +25,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_L4_D]    = MY_TDLAYER_MOVE_ACTION(KC_D, KC_NO, 4),
 
     /* Numpad */
-    [TD_PSLS_NLCK] = MY_TD_ACTION(KC_PSLS, KC_NO, KC_NLCK),
+    [TD_PSLS_NLCK] = MY_TD_ACTION(KC_PSLS, KC_NO, KC_ENT),
     [TD_PLUS_EQL]  = MY_TD_ACTION(KC_PPLS, KC_NO, KC_EQL),
     [TD_PAST_PERC] = MY_TD_ACTION(KC_PAST, KC_NO, KC_PERC),
     [TD_ENT_ESC]   = MY_TD_ACTION(KC_ENT, KC_NO, KC_ESC),
