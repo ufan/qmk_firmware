@@ -17,4 +17,4 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
 SRC += tapdance.c
 endif
 
-SRC += features/caps_word.c
+SRC += features/caps_word.c \

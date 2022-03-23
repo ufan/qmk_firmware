@@ -35,10 +35,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_PRG] = LAYOUT(/* Programming */
                     _______, _______,
-                    KC_ASDN, MYTD_L0_SPC1, KC_T, KC_U,
-                    KC_ASUP, MYTD_L2_SPC2, KC_T, KC_U,
-                    KC_ASRP, MYTD_L3_SPC3, KC_T, KC_U,
-                    KC_ASTG, MYTD_L4_SPC4, KC_T, KC_U),
+                    KC_ASDN, MYTD_L0_SPC1, KC_T,        KC_U,
+                    KC_ASUP, MYTD_L2_SPC2, MY_SEL_WORD, KC_U,
+                    KC_ASRP, MYTD_L3_SPC3, KC_T,        KC_U,
+                    KC_ASTG, MYTD_L4_SPC4, KC_T,        KC_U),
 
     [_EXT] = LAYOUT(/* Extra for future usage */
                     _______, _______,

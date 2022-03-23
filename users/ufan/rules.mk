@@ -8,15 +8,19 @@ NKRO_ENABLE = no            # Enable N-Key Rollover
 AUDIO_ENABLE = no           # Audio output
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
-
 LTO_ENABLE = yes 			# Link time optimization to reduce firmware size
 
 ifeq ($(strip $(FLASH_BOOTLOADER)), yes)
     OPT_DEFS += -DFLASH_BOOTLOADER
 endif
 
+ifeq ($(strip $(SELECT_WORD_ENABLE)), yes)
+	OPT_DEFS += -DSELECT_WORD_ENABLED
+	SRC += $(USER_PATH)/features/select_word.c
+endif
+
 # Extra sources
-SRC += $(USER_PATH)/ufan.c
+SRC += $(USER_PATH)/ufan.c	\
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += $(USER_PATH)/tapdance_common.c

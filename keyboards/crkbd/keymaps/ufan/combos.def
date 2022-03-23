@@ -6,7 +6,7 @@
 // General
 COMB(JK_ESC,     KC_ESC,     KC_J, KC_K)
 
-// Buffer navigation
+// Buffer or Terminal navigation
 COMB(WORD_FWD,   A(KC_F),    KC_M, KC_A)
 COMB(WORD_BKD,   A(KC_B),    KC_U, KC_I)
 COMB(LINE_BGN,   C(KC_A),    KC_H, KC_J)
@@ -16,12 +16,6 @@ COMB(ARROW_LEFT,  KC_LEFT,  KC_N, KC_M)
 COMB(ARROW_RIGHT, KC_RIGHT, KC_Y, KC_U)
 COMB(ARROW_UP,    KC_UP,    KC_I, KC_O)
 COMB(ARROW_DOWN,  KC_DOWN, KC_A, KC_Z)
-
-// Spacemacs workspace (+ left-thumb SPC)
-COMB(SPC1,      EMACS_SPC_1, LT(2,KC_TAB),  KC_M)
-COMB(SPC2,      EMACS_SPC_2, LT(2,KC_TAB),  KC_A)
-COMB(SPC3,      EMACS_SPC_3, LT(2,KC_TAB),  KC_Z)
-COMB(SPC4,      EMACS_SPC_4, LT(2,KC_TAB),  KC_J)
 
 // PC workspace navigation
 COMB(WKSPC_UP,   C(KC_UP),   KC_P, KC_MINS)
@@ -35,7 +29,7 @@ COMB(WINDOW_RIGHT, SWIN(KC_RIGHT), KC_SCLN, KC_QUOT)
 //// Left Hand ////
 
 // WIN key
-COMB(WE_LGUI,    KC_LGUI,    KC_W, KC_E)
+COMB(WE_LGUI,    KC_LGUI,    KC_W, KC_Q)
 
 // Punctuations
 COMB(TILD,   KC_TILD, KC_D, KC_F)
@@ -75,7 +69,7 @@ COMB(BOOTLOADER,   QK_BOOTLOADER,   KC_G, KC_B)
 COMB(ASDN,      KC_ASDN,                KC_DOT,         KC_LBRC)
 COMB(ASUP,      KC_ASUP,                KC_DOT,         KC_EQL)
 COMB(ASRP,      KC_ASRP,                KC_LBRC,         KC_EQL)
-COMB(ASTG,      KC_ASTG,                KC_X,            KC_C)
+COMB(ASTG,      KC_ASTG,                KC_X,            KC_BSLS)
 
 //// Debug ////
 COMB(CAPS_WORD, KC_NO, KC_LBRC, KC_RBRC)

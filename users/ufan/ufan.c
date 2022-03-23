@@ -1,5 +1,9 @@
 #include "ufan.h"
 
+#ifdef SELECT_WORD_ENABLED
+#include "features/select_word.h"
+#endif
+
 /* Customize process function */
 static bool     is_alt_esc_active = false;
 static uint16_t alt_esc_timer     = 0;
@@ -23,8 +27,15 @@ void matrix_scan_user(void) {
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) { return true; }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    // select word macro
+    #ifdef SELECT_WORD_ENABLED
+    if (!process_select_word(keycode, record, MY_SEL_WORD)) { return false; }
+    #endif
+
+    // macros send as string (defined in macro_common.h)
     PROCESS_MACRO(keycode, record->event.pressed)
 
+    // other complicated macros
     switch (keycode) {
         case MY_ALT_ESC: // super ALT+ESC
             if (record->event.pressed) {
