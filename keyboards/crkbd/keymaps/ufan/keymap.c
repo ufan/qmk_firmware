@@ -19,7 +19,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "ufan.h"
 #include "features/caps_word.h"
+#include "features/custom_shift_keys.h"
+#ifdef COMBO_ENABLE
 #include "g/keymap_combo.h"
+#endif
+
+const custom_shift_key_t custom_shift_keys[] = {
+    {KC_SLSH, KC_BSLS},
+    {KC_QUES, KC_PIPE},
+};
+uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* [0] = LAYOUT_split_3x6_3( */
@@ -37,13 +46,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-    KC_EQL,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_MINS,
+    KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-    KC_DOT,    KC_COMM,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_QUOT, KC_SCLN,
+    KC_LPRN,  KC_A, KC_S, LT(3, KC_D), LT(2, KC_F), KC_G,                        KC_H, LT(2, KC_J), LT(3, KC_K), KC_L, KC_QUOT, KC_SCLN,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-    KC_LBRC,    KC_BSLS,    KC_X,    KC_C,    KC_V,    KC_B,                   KC_N,    KC_M, KC_A,  KC_Z, KC_SLSH,  KC_RBRC,
+    LSFT_T(KC_PLUS),    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                   KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  RSFT_T(KC_EQL),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                  LSFT_T(KC_LPRN), LT(2, KC_TAB), LALT_T(KC_SPC),        LCTL_T(KC_ENT), LT(3, KC_BSPC),RSFT_T(KC_RPRN)
+                  KC_LBRC, LALT_T(KC_MINS), LCTL_T(KC_SPC),        RCTL_T(KC_ENT), RALT_T(KC_UNDS), KC_LBRC
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -56,13 +65,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,                      KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PAST, XXXXXXX,
+       MY_MAKE, XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,                      KC_SLSH, KC_7, KC_8, KC_9, KC_ASTR, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_PPLS,  KC_P4, KC_P5, KC_P6, KC_PMNS,  XXXXXXX,
+      QK_BOOTLOADER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_PLUS,  KC_4, KC_5, KC_6, KC_MINS,  XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, EMACS_SPC_4, EMACS_SPC_3, EMACS_SPC_2, EMACS_SPC_1, XXXXXXX,                      KC_P0, KC_P1, KC_P2, KC_P3, KC_PDOT, KC_PEQL,
+      QK_CLEAR_EEPROM, EMACS_SPC_4, EMACS_SPC_3, EMACS_SPC_2, EMACS_SPC_1, XXXXXXX,                      KC_0, KC_1, KC_2, KC_3, KC_DOT, KC_EQL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______, _______,   _______, _______, _______
+                                          _______, _______, _______,   _______, KC_EQL, KC_DOT
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -183,6 +192,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     set_keylog(keycode, record);
   }
 
+  // custom shift
+  if (!process_custom_shift_keys(keycode, record)) { return false; }
+
+  // caps word
   if (!process_caps_word(keycode, record)) { return false; }
 
   switch (keycode) {
@@ -202,3 +215,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 #endif // OLED_ENABLE
+
+void matrix_scan_keymap(void) {
+  caps_word_task();
+}

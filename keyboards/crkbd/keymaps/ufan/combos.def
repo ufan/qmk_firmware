@@ -7,7 +7,7 @@
 COMB(JK_ESC,     KC_ESC,     KC_J, KC_K)
 
 // Buffer or Terminal navigation
-COMB(WORD_FWD,   A(KC_F),    KC_M, KC_A)
+COMB(WORD_FWD,   A(KC_F),    KC_M, KC_COMM)
 COMB(WORD_BKD,   A(KC_B),    KC_U, KC_I)
 COMB(LINE_BGN,   C(KC_A),    KC_H, KC_J)
 COMB(LINE_END,   C(KC_E),    KC_K, KC_L)
@@ -15,7 +15,7 @@ COMB(LINE_END,   C(KC_E),    KC_K, KC_L)
 COMB(ARROW_LEFT,  KC_LEFT,  KC_N, KC_M)
 COMB(ARROW_RIGHT, KC_RIGHT, KC_Y, KC_U)
 COMB(ARROW_UP,    KC_UP,    KC_I, KC_O)
-COMB(ARROW_DOWN,  KC_DOWN, KC_A, KC_Z)
+COMB(ARROW_DOWN,  KC_DOWN, KC_COMM, KC_DOT)
 
 // PC workspace navigation
 COMB(WKSPC_UP,   C(KC_UP),   KC_P, KC_MINS)
@@ -29,7 +29,10 @@ COMB(WINDOW_RIGHT, SWIN(KC_RIGHT), KC_SCLN, KC_QUOT)
 //// Left Hand ////
 
 // WIN key
-COMB(WE_LGUI,    KC_LGUI,    KC_W, KC_Q)
+COMB(LGUI,    KC_LGUI,    KC_W, KC_E)
+
+// F11 for fullscreen
+COMB(F11,    KC_F11,    KC_W, KC_Q)
 
 // Punctuations
 COMB(TILD,   KC_TILD, KC_D, KC_F)
@@ -42,10 +45,10 @@ COMB(ZERO,   KC_0,    KC_F, KC_G)
 COMB(PG_UP,      KC_PGUP,    KC_R, KC_T)
 COMB(PG_DOWN,    KC_PGDN,    KC_V, KC_B)
 
-COMB(TAB_BKD,     C(KC_PGUP), KC_DOT,  KC_COMM)
-COMB(TAB_FWD,     C(KC_PGDN), KC_S,    KC_COMM)
+COMB(TAB_BKD,     C(KC_PGUP), KC_BSLS,  KC_A)
+COMB(TAB_FWD,     C(KC_PGDN), KC_S,    KC_A)
 COMB(HISTORY_BKD, KC_MS_BTN4, KC_EQL,  KC_Q)
-COMB(HISTORY_FWD, KC_MS_BTN5, KC_LBRC, KC_BSLS)
+COMB(HISTORY_FWD, KC_MS_BTN5, KC_LBRC, KC_Z)
 
 //// Thumb-Row ////
 
@@ -66,10 +69,12 @@ COMB(CLEAR_EEPROM, QK_CLEAR_EEPROM, KC_T, KC_B)
 COMB(BOOTLOADER,   QK_BOOTLOADER,   KC_G, KC_B)
 
 // auto-shift adjust
+#ifdef AUTO_SHIFT_ENABLE
 COMB(ASDN,      KC_ASDN,                KC_DOT,         KC_LBRC)
 COMB(ASUP,      KC_ASUP,                KC_DOT,         KC_EQL)
 COMB(ASRP,      KC_ASRP,                KC_LBRC,         KC_EQL)
 COMB(ASTG,      KC_ASTG,                KC_X,            KC_BSLS)
+#endif
 
 //// Debug ////
 COMB(CAPS_WORD, KC_NO, KC_LBRC, KC_RBRC)

@@ -1,0 +1,3 @@
+* select_word
+doc : https://getreuer.info/posts/keyboards/select-word/index.html
+original src : https://github.com/getreuer/qmk-keymap/blob/main/features/select_word.c

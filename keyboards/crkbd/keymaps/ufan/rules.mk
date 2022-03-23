@@ -7,8 +7,9 @@ LTO_ENABLE      = yes
 LAYOUTS = split_3x6_3
 
 TAP_DANCE_ENABLE = no
-AUTO_SHIFT_ENABLE = yes
+AUTO_SHIFT_ENABLE = no
 LEADER_ENABLE = no
+
 COMBO_ENABLE = yes
 VPATH += keyboards/gboards
 
@@ -18,3 +19,4 @@ SRC += tapdance.c
 endif
 
 SRC += features/caps_word.c \
+       features/custom_shift_keys.c \
