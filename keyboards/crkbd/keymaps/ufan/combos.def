@@ -41,11 +41,11 @@ COMB(CAPS_LOCK2, KC_LCAP, KC_X, KC_Z)
 #endif
 
 // Punctuations
-COMB(DOLLAR,  KC_DLR,  LT(3,         KC_D), LT(2, KC_F))
-COMB(HASH,    KC_HASH, LSFT_T(KC_S), LT(3,  KC_D))
-COMB(PERC,    KC_PERC, LT(2,         KC_F), KC_G)
-COMB(EXCLAIM, KC_EXLM, KC_E,         KC_R)
-COMB(TILDE,   KC_TILD, KC_V,         KC_C)
+COMB(DOLLAR,   KC_DLR,  LT(3,         KC_D), LT(2, KC_F))
+COMB(HASH,     KC_HASH, LSFT_T(KC_S), LT(3,  KC_D))
+COMB(PERC,     KC_PERC, LT(2,         KC_F), KC_G)
+COMB(EXCLAIM,  KC_EXLM, KC_E,         KC_R)
+COMB(QUESTION, KC_QUES, KC_V,         KC_C)
 
 // Browser navigation
 COMB(PG_UP,      KC_PGUP,    KC_R, KC_T)
@@ -90,3 +90,4 @@ COMB(DTRP, DT_PRNT, KC_UNDS,   MY_CBRACS)
 #endif
 
 //// Others ////
+COMB(CAPS_WORD, KC_NO, KC_DOT, KC_QUOT)

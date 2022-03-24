@@ -47,6 +47,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             add_oneshot_mods(MOD_BIT(KC_LSFT));
         }
         return false;
+    case MY_PROPERTY:
+        if (record->event.pressed) {
+            SEND_STRING("#+:");
+            tap_code(KC_LEFT);
+        }
+        return false;
+    case MY_COMMENT_ASTR:
+        if (record->event.pressed) {
+            SEND_STRING("/*  */");
+            tap_code(KC_LEFT);
+            tap_code(KC_LEFT);
+            tap_code(KC_LEFT);
+        }
+        return false;
+    case MY_COMMENT_SLSH:
+        if (record->event.pressed) {
+            SEND_STRING("// ");
+        }
+        return false;
     case MY_BRACES:
         if (record->event.pressed) {
             clear_mods();

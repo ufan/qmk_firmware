@@ -20,8 +20,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ufan.h"
 #include "features/caps_word.h"
 #include "features/custom_shift_keys.h"
+
+#ifdef ACHORDION_ENABLED
+#include "features/achordion.h"
+#endif
+
 #ifdef COMBO_ENABLE
 #include "g/keymap_combo.h"
+#endif
+
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+#define MY_TAPPING_TERM g_tapping_term
+#else
+#define MY_TAPPING_TERM TAPPING_TERM
 #endif
 
 const custom_shift_key_t custom_shift_keys[] = {
@@ -31,7 +42,7 @@ const custom_shift_key_t custom_shift_keys[] = {
     {KC_LCBR, KC_RCBR},
     {KC_COMM, KC_PIPE},
     {KC_DOT,  KC_BSLS},
-    {KC_SLSH, KC_QUES},
+    {KC_SLSH, KC_TILD},
     /* {KC_COLN, KC_SCLN}, */
     {KC_UNDS, KC_AT}
 };
@@ -68,13 +79,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [3] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-                           XXXXXXX, XXXXXXX, KC_DQUO, KC_LABK, KC_RABK, KC_PERC,                      KC_AMPR, KC_DOT, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX,
+                           XXXXXXX, XXXXXXX, MY_COMMENT_SLSH, KC_LABK, KC_RABK, KC_DQUO,                     KC_AMPR, KC_CIRC, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
                            XXXXXXX, XXXXXXX, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL,                      KC_PIPE, KC_COLN, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-                           XXXXXXX, XXXXXXX, KC_CIRC, KC_SLSH, KC_ASTR, KC_BSLS,                      KC_TILD, KC_DLR, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX,
+                           XXXXXXX, XXXXXXX, MY_COMMENT_ASTR, KC_SLSH, KC_ASTR, KC_BSLS,                     KC_TILD, KC_DLR, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______, MY_POINTER,    MY_NAMESPACE, _______, _______
+                                          _______, MY_NAMESPACE, MY_POINTER,    MY_NEXT_SENT, MY_PROPERTY, _______
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -199,16 +210,47 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case LSFT_T(KC_S):
     case RSFT_T(KC_L):
-        return g_tapping_term + 100;
+        return MY_TAPPING_TERM + 50;
     default:
-        return g_tapping_term;
+        return MY_TAPPING_TERM;
     }
 }
 #endif
+
+#ifdef ACHORDION_ENABLED
+bool achordion_chord(uint16_t tap_hold_keycode,
+                     keyrecord_t *tap_hold_record,
+                     uint16_t other_keycode,
+                     keyrecord_t *other_record) {
+    switch (tap_hold_keycode) {
+    case RCTL_T(KC_ENT):
+        if (other_keycode == RSFT_T(KC_L)) { return true; }
+        break;
+    }
+
+    return achordion_opposite_hands(tap_hold_record, other_record);
+}
+
+uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
+  switch (tap_hold_keycode) {
+  /*   case HOME_SC: */
+  /*   case HOME_Z: */
+  /*     return 0;  // Bypass Achordion for these keys. */
+  }
+
+  return 800;  // Otherwise use a timeout of 800 ms.
+}
+#endif
+
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     set_keylog(keycode, record);
   }
+
+  // achordion: better tap-hold decision
+#ifdef ACHORDION_ENABLED
+    if (!process_achordion(keycode, record)) { return false; }
+#endif
 
   // custom shift
   if (!process_custom_shift_keys(keycode, record)) { return false; }
@@ -245,6 +287,9 @@ LEADER_EXTERNS();
 #endif
 
 void matrix_scan_keymap(void) {
+    // achordion task
+    achordion_task();
+
     // caps word update timer
     caps_word_task();
 

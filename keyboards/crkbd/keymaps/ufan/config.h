@@ -35,18 +35,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUTO_SHIFT_TIMEOUT    135
 #endif
 
-#define TAPPING_TERM 165
+#define TAPPING_TERM 160
 #define TAPPING_TERM_PER_KEY
 #define DYNAMIC_TAPPING_TERM_INCREMENT 15
 
 #define IGNORE_MOD_TAP_INTERRUPT
-/* #define PERMISSIVE_HOLD */
+#define PERMISSIVE_HOLD
 #define TAPPING_FORCE_HOLD_PER_KEY
 
 #define UNICODE_SELECTED_MODES UC_LNX
-
-// Use Left Ctrl + Right Ctrl to activate the Command feature.
-#define IS_COMMAND() (get_mods() == MOD_MASK_CTRL)
 
 // When idle, turn off Caps Word after 5 seconds.
 #define CAPS_WORD_IDLE_TIMEOUT 5000
