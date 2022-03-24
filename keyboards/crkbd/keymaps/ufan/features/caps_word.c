@@ -17,6 +17,7 @@
 // https://getreuer.info/posts/keyboards/caps-word
 
 #include "caps_word.h"
+#include "quantum.h"
 
 static bool caps_word_active = false;
 
@@ -40,6 +41,10 @@ static uint16_t idle_timer = 0;
 void caps_word_task(void) {
   if (caps_word_active && timer_expired(timer_read(), idle_timer)) {
     caps_word_set(false);
+
+#ifdef AUTO_SHIFT_ENABLE
+    autoshift_enable();
+#endif
   }
 }
 #endif  // CAPS_WORD_IDLE_TIMEOUT > 0
@@ -54,6 +59,10 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
   if (!caps_word_active) {
     // Pressing both shift keys at the same time enables caps word.
     if (mods == MOD_MASK_SHIFT) {
+#ifdef AUTO_SHIFT_ENABLE
+    autoshift_disable();
+#endif
+
       caps_word_set(true);  // Activate Caps Word.
       return false;
     }
@@ -81,6 +90,10 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
         if (record->tap.count == 0) {
           // Deactivate if a mod becomes active through holding a mod-tap key.
           caps_word_set(false);
+
+#ifdef AUTO_SHIFT_ENABLE
+    autoshift_enable();
+#endif
           return true;
         }
         keycode &= 0xff;
@@ -110,6 +123,10 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
   }
 
   caps_word_set(false);  // Deactivate Caps Word.
+#ifdef AUTO_SHIFT_ENABLE
+    autoshift_enable();
+#endif
+
   return true;
 }
 
@@ -156,4 +173,3 @@ __attribute__((weak)) bool caps_word_press_user(uint16_t keycode) {
       return false;  // Deactivate Caps Word.
   }
 }
-

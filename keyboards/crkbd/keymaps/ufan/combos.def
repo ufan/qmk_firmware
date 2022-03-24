@@ -4,26 +4,26 @@
 //// Right Hand ////
 
 // General
-COMB(JK_ESC,     KC_ESC,     KC_J, KC_K)
+COMB(JK_ESC,     KC_ESC,     LT(2, KC_J), LT(3, KC_K))
 
 // Buffer or Terminal navigation
 COMB(WORD_FWD,   A(KC_F),    KC_M, KC_COMM)
 COMB(WORD_BKD,   A(KC_B),    KC_U, KC_I)
-COMB(LINE_BGN,   C(KC_A),    KC_H, KC_J)
-COMB(LINE_END,   C(KC_E),    KC_K, KC_L)
+COMB(LINE_BGN,   C(KC_A),    KC_H, LT(2, KC_J))
+COMB(LINE_END,   C(KC_E),    LT(3, KC_K), RSFT_T(KC_L))
 
 COMB(ARROW_LEFT,  KC_LEFT,  KC_N, KC_M)
 COMB(ARROW_RIGHT, KC_RIGHT, KC_Y, KC_U)
 COMB(ARROW_UP,    KC_UP,    KC_I, KC_O)
-COMB(ARROW_DOWN,  KC_DOWN, KC_COMM, KC_DOT)
+COMB(ARROW_DOWN,  KC_DOWN, KC_COMM, KC_A)
 
 // PC workspace navigation
-COMB(WKSPC_UP,   C(KC_UP),   KC_P, KC_MINS)
-COMB(WKSPC_DOWN, C(KC_DOWN), KC_SLSH, KC_RBRC)
+COMB(WKSPC_UP,   C(KC_UP),   KC_P, KC_UNDS)
+COMB(WKSPC_DOWN, C(KC_DOWN), KC_SLSH, MY_CBRACS)
 
 COMB(WINDOW_UP,    SWIN(KC_UP),    KC_O,    KC_P)
-COMB(WINDOW_DOWN,  SWIN(KC_DOWN),  KC_Z,    KC_SLSH)
-COMB(WINDOW_LEFT,  SWIN(KC_LEFT),  KC_L,    KC_QUOT)
+COMB(WINDOW_DOWN,  SWIN(KC_DOWN),  KC_A,    KC_SLSH)
+COMB(WINDOW_LEFT,  SWIN(KC_LEFT),  RSFT_T(KC_L),    KC_QUOT)
 COMB(WINDOW_RIGHT, SWIN(KC_RIGHT), KC_SCLN, KC_QUOT)
 
 //// Left Hand ////
@@ -34,32 +34,38 @@ COMB(LGUI,    KC_LGUI,    KC_W, KC_E)
 // F11 for fullscreen
 COMB(F11,    KC_F11,    KC_W, KC_Q)
 
+// CAPS LOCK
+COMB(CAPS_LOCK, KC_CAPS, KC_X, KC_C)
+#ifndef AUTO_SHIFT_ENABLE
+COMB(CAPS_LOCK2, KC_LCAP, KC_X, KC_Z)
+#endif
+
 // Punctuations
-COMB(TILD,   KC_TILD, KC_D, KC_F)
-COMB(AT,     KC_AT,   KC_E, KC_R)
-COMB(HASH,   KC_HASH, KC_C, KC_V)
-COMB(DOLLAR, KC_DLR,  KC_S, KC_D)
-COMB(ZERO,   KC_0,    KC_F, KC_G)
+COMB(DOLLAR,  KC_DLR,  LT(3,         KC_D), LT(2, KC_F))
+COMB(HASH,    KC_HASH, LSFT_T(KC_S), LT(3,  KC_D))
+COMB(PERC,    KC_PERC, LT(2,         KC_F), KC_G)
+COMB(EXCLAIM, KC_EXLM, KC_E,         KC_R)
+COMB(TILDE,   KC_TILD, KC_V,         KC_C)
 
 // Browser navigation
 COMB(PG_UP,      KC_PGUP,    KC_R, KC_T)
 COMB(PG_DOWN,    KC_PGDN,    KC_V, KC_B)
 
-COMB(TAB_BKD,     C(KC_PGUP), KC_BSLS,  KC_A)
-COMB(TAB_FWD,     C(KC_PGDN), KC_S,    KC_A)
-COMB(HISTORY_BKD, KC_MS_BTN4, KC_EQL,  KC_Q)
-COMB(HISTORY_FWD, KC_MS_BTN5, KC_LBRC, KC_Z)
+COMB(TAB_BKD,     C(KC_PGUP), MY_PARENS,    KC_DOT)
+COMB(TAB_FWD,     C(KC_PGDN), LSFT_T(KC_S), KC_DOT)
+COMB(HISTORY_BKD, KC_MS_BTN4, KC_MINS,      KC_Q)
+COMB(HISTORY_FWD, KC_MS_BTN5, MY_BRACS,     KC_Z)
 
 //// Thumb-Row ////
 
 // layer toggle
-COMB(TG_L1,     TG(1),       LALT_T(KC_SPC),  LCTL_T(KC_ENT))
-COMB(TG_L2,     TG(2),       LT(2, KC_TAB),   LT(3, KC_BSPC))
-COMB(TG_L3,     TG(3),       LSFT_T(KC_LPRN), RSFT_T(KC_RPRN))
+COMB(TG_L1, TG(1), LCTL_T(KC_SPC), RCTL_T(KC_ENT))
+COMB(TG_L2, TG(2), LALT_T(KC_TAB), RALT_T(KC_BSPC))
+COMB(TG_L3, TG(3), KC_LEAD,        KC_LCAP)
 
 // strings
-SUBS(PC_PASS,   "ufan2129_zhouyong", LT(2,KC_TAB), LALT_T(KC_SPC))
-SUBS(BITWARDEN, "Ufan@Bitw_0532",    LT(3,KC_BSPC), LCTL_T(KC_ENT))
+SUBS(PC_PASS,   "ufan2129_zhouyong", LALT_T(KC_TAB), LCTL_T(KC_SPC))
+SUBS(BITWARDEN, "Ufan@Bitw_0532",    RALT_T(KC_BSPC), RCTL_T(KC_ENT))
 
 //// Colume-Combo ////
 
@@ -70,11 +76,17 @@ COMB(BOOTLOADER,   QK_BOOTLOADER,   KC_G, KC_B)
 
 // auto-shift adjust
 #ifdef AUTO_SHIFT_ENABLE
-COMB(ASDN,      KC_ASDN,                KC_DOT,         KC_LBRC)
-COMB(ASUP,      KC_ASUP,                KC_DOT,         KC_EQL)
-COMB(ASRP,      KC_ASRP,                KC_LBRC,         KC_EQL)
-COMB(ASTG,      KC_ASTG,                KC_X,            KC_BSLS)
+COMB(ASDN,      KC_ASDN,                KC_LPRN,         KC_LBRC)
+COMB(ASUP,      KC_ASUP,                KC_LPRN,         KC_MINS)
+COMB(ASRP,      KC_ASRP,                KC_LBRC,         KC_MINS)
+COMB(ASTG,      KC_ASTG,                KC_X,            KC_Z)
 #endif
 
-//// Debug ////
-COMB(CAPS_WORD, KC_NO, KC_LBRC, KC_RBRC)
+// tap term adjust
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+COMB(DTDN, DT_DOWN, MY_CBRACS, KC_SCLN)
+COMB(DTUP, DT_UP,   KC_UNDS,   KC_SCLN)
+COMB(DTRP, DT_PRNT, KC_UNDS,   MY_CBRACS)
+#endif
+
+//// Others ////

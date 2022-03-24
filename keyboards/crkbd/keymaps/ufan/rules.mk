@@ -8,10 +8,15 @@ LAYOUTS = split_3x6_3
 
 TAP_DANCE_ENABLE = no
 AUTO_SHIFT_ENABLE = no
-LEADER_ENABLE = no
+
+LEADER_ENABLE = yes
 
 COMBO_ENABLE = yes
 VPATH += keyboards/gboards
+
+KEY_LOCK_ENABLE = no
+
+DYNAMIC_TAPPING_TERM_ENABLE = yes
 
 # extra source file
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)

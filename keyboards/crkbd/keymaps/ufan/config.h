@@ -31,17 +31,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define COMBO_ONLY_FROM_LAYER 0
 
 #ifdef AUTO_SHIFT_ENABLE
-#define AUTO_SHIFT_DISABLED_AT_STARTUP
+/* #define AUTO_SHIFT_DISABLED_AT_STARTUP */
 #define AUTO_SHIFT_TIMEOUT    135
 #endif
 
-#define TAPPING_TERM 180
-#define IGNORE_MOD_TAP_INTERRUPT
-#define PERMISSIVE_HOLD
-#define TAPPING_FORCE_HOLD_PER_KEY
+#define TAPPING_TERM 165
+#define TAPPING_TERM_PER_KEY
+#define DYNAMIC_TAPPING_TERM_INCREMENT 15
 
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+#define IGNORE_MOD_TAP_INTERRUPT
+/* #define PERMISSIVE_HOLD */
+#define TAPPING_FORCE_HOLD_PER_KEY
 
 #define UNICODE_SELECTED_MODES UC_LNX
 
@@ -50,3 +50,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // When idle, turn off Caps Word after 5 seconds.
 #define CAPS_WORD_IDLE_TIMEOUT 5000
+
+// leader key configuration
+#define LEADER_TIMEOUT 300
+#define LEADER_PER_KEY_TIMING
+#define LEADER_NO_TIMEOUT

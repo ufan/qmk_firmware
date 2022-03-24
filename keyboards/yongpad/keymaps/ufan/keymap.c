@@ -14,9 +14,9 @@ enum layers { _NUM = 0, _ULT, _NAV, _PRG, _EXT};
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUM] = LAYOUT(/* Numpad */
                     TO(0),         MY_PASS_PC,
-                    LT(1, KC_P0),  MYTD_L0_P1,   KC_P4,         KC_P7,
-                    KC_BSPC,       MYTD_L2_P2,   KC_P5,         KC_P8,
-                    KC_PDOT,       MYTD_L3_P3,   KC_P6,         KC_P9,
+                    LT(1, KC_0),  MYTD_L0_P1,   KC_4,         KC_7,
+                    KC_BSPC,       MYTD_L2_P2,   KC_5,         KC_8,
+                    KC_DOT,       MYTD_L3_P3,   KC_6,         KC_9,
                     MYTD_PLUS_EQL, MYTD_L4_PMNS, MYTD_PAST_PERC,MYTD_PSLS_NLCK),
 
     [_ULT] = LAYOUT(/* Utilities */
