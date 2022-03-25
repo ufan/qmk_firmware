@@ -173,7 +173,7 @@ void render_status(void) {
 
 #ifdef WPM_ENABLE
     oled_write_P(PSTR("\n"), false);
-    sprintf(wpm_str, "WPM:%03d", get_current_wpm());
+    sprintf(wpm_str, "WPM:\n%03d", get_current_wpm());
     oled_write(wpm_str, false);
 #endif
 }
