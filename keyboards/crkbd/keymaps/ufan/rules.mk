@@ -20,7 +20,7 @@ KEY_LOCK_ENABLE = no
 
 DYNAMIC_TAPPING_TERM_ENABLE = no
 
-ACHORDION_ENABLE = no
+ACHORDION_ENABLE = yes
 
 # extra source file
 ifeq ($(strip $(ACHORDION_ENABLE)), yes)

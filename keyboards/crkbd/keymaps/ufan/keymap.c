@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef OLED_ENABLE
 #include <stdio.h>
+char wpm_str[10];
 
 #ifdef OLED_ANIMATION_ENABLE
 #define ANIM_INVERT false
@@ -98,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUM] = LAYOUT_split_3x6_3(
       MY_MAKE,         XXXXXXX, XXXXXXX, KC_PGUP, XXXXXXX, EMACS_SPC_1,         KC_PLUS, KC_7, KC_8, KC_9, KC_MINS, KC_ESC,
       QK_BOOTLOADER,   XXXXXXX, XXXXXXX, KC_PGDN, XXXXXXX, EMACS_SPC_2,         KC_ASTR, KC_4, KC_5, KC_6, KC_SLSH, KC_UP,
-      QK_CLEAR_EEPROM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EMACS_SPC_3,         KC_EQL,  KC_1, KC_2, KC_3, KC_DOT,  KC_DOWN,
+      QK_CLEAR_EEPROM, XXXXXXX, XXXXXXX, CTRL_SHIFT_C, CTRL_SHIFT_V, EMACS_SPC_3,         KC_EQL,  KC_1, KC_2, KC_3, KC_DOT,  KC_DOWN,
                                          _______, EMACS_SPC_4, MY_ALT_ESC,      KC_ENT,  KC_0, KC_BSPC
   ),
 
@@ -169,6 +170,12 @@ void render_status(void) {
     oled_write_P(PSTR("Mode:\n"), false);
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR(" NUM ") : PSTR("\n"), false);
     oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR(" CAPS") : PSTR("\n"), false);
+
+#ifdef WPM_ENABLE
+    oled_write_P(PSTR("\n"), false);
+    sprintf(wpm_str, "WPM:%03d", get_current_wpm());
+    oled_write(wpm_str, false);
+#endif
 }
 
 bool oled_task_user(void) {
