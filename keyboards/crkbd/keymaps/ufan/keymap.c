@@ -25,8 +25,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "features/achordion.h"
 #endif
 
-#ifdef COMBO_ENABLE
-#include "g/keymap_combo.h"
+#ifdef OLED_ENABLE
+#include <stdio.h>
+
+#ifdef OLED_ANIMATION_ENABLE
+#define ANIM_INVERT false
+#define ANIM_RENDER_WPM true
+#define FAST_TYPE_WPM 45
+#include "oled/bongocat.c"
+#else
+#include "oled/logo.c"
+#endif
 #endif
 
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
@@ -35,6 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MY_TAPPING_TERM TAPPING_TERM
 #endif
 
+/* Custom combination of the shifted keys  */
 const custom_shift_key_t custom_shift_keys[] = {
     {KC_MINS, KC_GRV},
     {KC_LPRN, KC_RPRN},
@@ -49,8 +59,24 @@ const custom_shift_key_t custom_shift_keys[] = {
 
 uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
+/* Layers of keymap  */
+enum layer_names {
+  _QWERT,
+  _PROGRAM,
+  _NUM,
+  _SYM,
+};
+
+// base layers
+#define PROGRAM DF(_PROGRAM)
+#define QWERT  DF(_QWERT)
+
+#ifdef COMBO_ENABLE
+#include "g/keymap_combo.h"
+#endif
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_split_3x6_3(
+  [_QWERT] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
     KC_MINS,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_UNDS,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -58,119 +84,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
     MY_BRACS,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M, KC_COMM,  KC_A, KC_SLSH,  MY_CBRACS,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                  KC_LEAD, LALT_T(KC_TAB), LCTL_T(KC_SPC),        RCTL_T(KC_ENT), RALT_T(KC_BSPC), MY_ALT_ESC
+                  KC_LGUI, LALT_T(KC_TAB), LCTL_T(KC_SPC),        RCTL_T(KC_ENT), RALT_T(KC_BSPC), MY_ALT_ESC
                                       //`--------------------------'  `--------------------------'
 
   ),
-  [1] = LAYOUT_split_3x6_3(
+  [_PROGRAM] = LAYOUT_split_3x6_3(
        XXXXXXX, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, XXXXXXX,
        XXXXXXX, XXXXXXX, _______, _______, _______, _______,          _______, _______, _______, _______, XXXXXXX, XXXXXXX,
        XXXXXXX, XXXXXXX, _______, _______, _______, _______,          _______, _______, _______, _______, XXXXXXX, XXXXXXX,
                                   _______, _______, _______,          _______, _______, _______
   ),
 
-  [2] = LAYOUT_split_3x6_3(
+  [_NUM] = LAYOUT_split_3x6_3(
       MY_MAKE,         XXXXXXX, XXXXXXX, KC_PGUP, XXXXXXX, EMACS_SPC_1,         KC_PLUS, KC_7, KC_8, KC_9, KC_MINS, KC_ESC,
       QK_BOOTLOADER,   XXXXXXX, XXXXXXX, KC_PGDN, XXXXXXX, EMACS_SPC_2,         KC_ASTR, KC_4, KC_5, KC_6, KC_SLSH, KC_UP,
       QK_CLEAR_EEPROM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EMACS_SPC_3,         KC_EQL,  KC_1, KC_2, KC_3, KC_DOT,  KC_DOWN,
-                                         _______, EMACS_SPC_4, MY_ALT_ESC,         KC_ENT,  KC_0, KC_BSPC
-                                      //`--------------------------'  `--------------------------'
+                                         _______, EMACS_SPC_4, MY_ALT_ESC,      KC_ENT,  KC_0, KC_BSPC
   ),
 
-  [3] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-                           XXXXXXX, XXXXXXX, MY_COMMENT_SLSH, KC_LABK, KC_RABK, KC_DQUO,                     KC_AMPR, KC_CIRC, KC_LCBR, KC_RCBR, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-                           XXXXXXX, XXXXXXX, KC_EXLM, KC_MINS, KC_PLUS, KC_EQL,                      KC_PIPE, KC_COLN, KC_LPRN, KC_RPRN, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-                           XXXXXXX, XXXXXXX, MY_COMMENT_ASTR, KC_SLSH, KC_ASTR, KC_BSLS,                     KC_TILD, KC_DLR, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, MY_NAMESPACE, MY_POINTER,    MY_NEXT_SENT, MY_PROPERTY, _______
-                                      //`--------------------------'  `--------------------------'
+  [_SYM] = LAYOUT_split_3x6_3(
+     QWERT,   XXXXXXX, MY_COMMENT_SLSH, KC_LABK, KC_RABK, KC_DQUO,        KC_AMPR, KC_CIRC, KC_LCBR, KC_RCBR, XXXXXXX, PROGRAM,
+     KC_CAPS, XXXXXXX, KC_EXLM,         KC_MINS, KC_PLUS, KC_EQL,         KC_PIPE, KC_COLN, KC_LPRN, KC_RPRN, XXXXXXX, KC_LCAP,
+     XXXXXXX, XXXXXXX, MY_COMMENT_ASTR, KC_SLSH, KC_ASTR, KC_BSLS,        KC_TILD, KC_DLR,  KC_LBRC,  KC_RBRC,  XXXXXXX,  XXXXXXX,
+                                _______, MY_NAMESPACE, MY_POINTER,        MY_NEXT_SENT, MY_PROPERTY, _______
   )
 };
 
 #ifdef OLED_ENABLE
-#include <stdio.h>
-
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
   }
-  return rotation;
+  return OLED_ROTATION_270;
 }
 
-#define L_BASE 0
-#define L_ADJUST 2
-#define L_LOWER 4
-#define L_RAISE 8
-
-void oled_render_layer_state(void) {
-    oled_write_P(PSTR("Layer: "), false);
-    switch (layer_state) {
-        case L_BASE:
-            oled_write_ln_P(PSTR("QWERT"), false);
-            break;
-        case L_LOWER:
-            oled_write_ln_P(PSTR("Lower"), false);
-            break;
-        case L_RAISE:
-            oled_write_ln_P(PSTR("Raise"), false);
-            break;
-        case L_ADJUST:
-        case L_ADJUST|L_LOWER:
-        case L_ADJUST|L_RAISE:
-        case L_ADJUST|L_LOWER|L_RAISE:
-            oled_write_ln_P(PSTR("Dvorak"), false);
-            break;
-    }
-}
-
-
-char keylog_str[24] = {};
-
-const char code_to_name[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
-    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
-
-void set_keylog(uint16_t keycode, keyrecord_t *record) {
-  char name = ' ';
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) ||
-        (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
-  if (keycode < 60) {
-    name = code_to_name[keycode];
-  }
-
-  // update keylog
-  snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
-           record->event.key.row, record->event.key.col,
-           keycode, name);
-}
-
-void oled_render_keylog(void) {
-    oled_write(keylog_str, false);
-}
-
-void render_bootmagic_status(bool status) {
-    /* Show Ctrl-Gui Swap options */
-    static const char PROGMEM logo[][2][3] = {
-        {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
-        {{0x95, 0x96, 0}, {0xb5, 0xb6, 0}},
-    };
-    if (status) {
-        oled_write_ln_P(logo[0][0], false);
-        oled_write_ln_P(logo[0][1], false);
-    } else {
-        oled_write_ln_P(logo[1][0], false);
-        oled_write_ln_P(logo[1][1], false);
-    }
-}
-
-void oled_render_logo(void) {
+void render_crkbd_logo(void) {
     static const char PROGMEM crkbd_logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
         0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
@@ -179,15 +127,66 @@ void oled_render_logo(void) {
     oled_write_P(crkbd_logo, false);
 }
 
+void render_status(void) {
+    // oled_write_P(PSTR("Layout: "), false);
+    switch (get_highest_layer(default_layer_state)) {
+        case _QWERT:
+            oled_write_P(PSTR("QWERT "), false);
+            break;
+        case _PROGRAM:
+            oled_write_P(PSTR("PRGAM "), false);
+            break;
+    }
+
+    oled_write_P(PSTR("\n"), false);
+
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_P(PSTR("     "), false);
+            break;
+        case _SYM:
+            oled_write_P(PSTR("Sym  "), false);
+            break;
+        case _NUM:
+            oled_write_P(PSTR("Num  "), false);
+            break;
+        default:
+            oled_write_P(PSTR("Unkn "), false);
+            break;
+    }
+    oled_write_P(PSTR("\n"), false);
+
+    uint8_t modifiers = get_mods();
+
+    oled_write_P(((modifiers & MOD_MASK_SHIFT) || (caps_word_get()))? PSTR("SHIFT") : PSTR("\n"), false);
+    oled_write_P((modifiers & MOD_MASK_CTRL) ? PSTR("CTRL ") : PSTR("\n"), false);
+    oled_write_P((modifiers & MOD_MASK_ALT) ? PSTR("ALT  ") : PSTR("\n"), false);
+    oled_write_P((modifiers & MOD_MASK_GUI) ? PSTR("SUPER") : PSTR("\n"), false);
+
+    oled_write_P(PSTR("\n"), false);
+
+    uint8_t led_usb_state = host_keyboard_leds();
+    oled_write_P(PSTR("Mode:\n"), false);
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_NUM_LOCK) ? PSTR(" NUM ") : PSTR("\n"), false);
+    oled_write_P(IS_LED_ON(led_usb_state, USB_LED_CAPS_LOCK) ? PSTR(" CAPS") : PSTR("\n"), false);
+}
+
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
-        oled_render_layer_state();
-        oled_render_keylog();
+        render_status();
     } else {
-        oled_render_logo();
+#ifdef OLED_ANIMATION_ENABLE
+        render_anim();
+        oled_set_cursor(0, 0);
+        sprintf(wpm_str, "WPM:%03d", get_current_wpm());
+        oled_write(wpm_str, false);
+#else
+        render_crkbd_logo();
+#endif
     }
     return false;
 }
+#endif
 
 // tap force hold per key
 #ifdef TAPPING_FORCE_HOLD_PER_KEY
@@ -206,15 +205,15 @@ bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record)
     }
 }
 
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-    case LSFT_T(KC_S):
-    case RSFT_T(KC_L):
-        return MY_TAPPING_TERM + 50;
-    default:
-        return MY_TAPPING_TERM;
-    }
-}
+/* uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) { */
+/*     switch (keycode) { */
+/*     case LSFT_T(KC_S): */
+/*     case RSFT_T(KC_L): */
+/*         return MY_TAPPING_TERM + 50; */
+/*     default: */
+/*         return MY_TAPPING_TERM; */
+/*     } */
+/* } */
 #endif
 
 #ifdef ACHORDION_ENABLED
@@ -243,10 +242,6 @@ uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
 #endif
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    set_keylog(keycode, record);
-  }
-
   // achordion: better tap-hold decision
 #ifdef ACHORDION_ENABLED
     if (!process_achordion(keycode, record)) { return false; }
@@ -271,16 +266,23 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   /*         return false; */
   /*     } */
   /*     break; */
-  case LSFT_T(KC_PLUS):
-      if (record->tap.count && record->event.pressed) {
-          tap_code16(KC_PLUS);
-          return false;
-      }
-      break;
+  /* case LSFT_T(KC_PLUS): */
+  /*     if (record->tap.count && record->event.pressed) { */
+  /*         tap_code16(KC_PLUS); */
+  /*         return false; */
+  /*     } */
+  /*     break; */
     }
+
+  // show keycode in oled
+/* #ifndef KEYLOG_ENABLED */
+/*   if (record->event.pressed) { */
+/*     set_keylog(keycode, record); */
+/*   } */
+/* #endif */
+
   return true;
 }
-#endif // OLED_ENABLE
 
 #ifdef LEADER_ENABLE
 LEADER_EXTERNS();
@@ -288,13 +290,15 @@ LEADER_EXTERNS();
 
 void matrix_scan_keymap(void) {
     // achordion task
+#ifdef ACHORDION_ENABLED
     achordion_task();
+#endif
 
     // caps word update timer
     caps_word_task();
 
     // leader key process
-    #ifdef LEADER_ENABLE
+#ifdef LEADER_ENABLE
     LEADER_DICTIONARY() {
         leading = false;
         leader_end();
@@ -303,5 +307,5 @@ void matrix_scan_keymap(void) {
             SEND_STRING("QMK is awsome");
         }
     }
-    #endif
+#endif
 }

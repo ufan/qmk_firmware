@@ -55,9 +55,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         return false;
     case MY_COMMENT_ASTR:
         if (record->event.pressed) {
-            SEND_STRING("/*  */");
-            tap_code(KC_LEFT);
-            tap_code(KC_LEFT);
+            SEND_STRING("/*  ");
             tap_code(KC_LEFT);
         }
         return false;

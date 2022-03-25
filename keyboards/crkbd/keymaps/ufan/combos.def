@@ -29,16 +29,10 @@ COMB(WINDOW_RIGHT, SWIN(KC_RIGHT), KC_SCLN, KC_QUOT)
 //// Left Hand ////
 
 // WIN key
-COMB(LGUI,    KC_LGUI,    KC_W, KC_E)
+COMB(LGUI,    KC_LGUI,    KC_R, KC_T)
 
 // F11 for fullscreen
 COMB(F11,    KC_F11,    KC_W, KC_Q)
-
-// CAPS LOCK
-COMB(CAPS_LOCK, KC_CAPS, KC_X, KC_C)
-#ifndef AUTO_SHIFT_ENABLE
-COMB(CAPS_LOCK2, KC_LCAP, KC_X, KC_Z)
-#endif
 
 // Punctuations
 COMB(DOLLAR,   KC_DLR,  LT(3,         KC_D), LT(2, KC_F))
@@ -48,8 +42,8 @@ COMB(EXCLAIM,  KC_EXLM, KC_E,         KC_R)
 COMB(QUESTION, KC_QUES, KC_V,         KC_C)
 
 // Browser navigation
-COMB(PG_UP,      KC_PGUP,    KC_R, KC_T)
-COMB(PG_DOWN,    KC_PGDN,    KC_V, KC_B)
+COMB(PG_UP,      KC_PGUP,    KC_W, KC_E)
+COMB(PG_DOWN,    KC_PGDN,    KC_X, KC_C)
 
 COMB(TAB_BKD,     C(KC_PGUP), MY_PARENS,    KC_DOT)
 COMB(TAB_FWD,     C(KC_PGDN), LSFT_T(KC_S), KC_DOT)
@@ -59,9 +53,8 @@ COMB(HISTORY_FWD, KC_MS_BTN5, MY_BRACS,     KC_Z)
 //// Thumb-Row ////
 
 // layer toggle
-COMB(TG_L1, TG(1), LCTL_T(KC_SPC), RCTL_T(KC_ENT))
-COMB(TG_L2, TG(2), LALT_T(KC_TAB), RALT_T(KC_BSPC))
-COMB(TG_L3, TG(3), KC_LEAD,        KC_LCAP)
+COMB(TG_L2, TG(2), LCTL_T(KC_SPC), RCTL_T(KC_ENT))
+COMB(TG_L3, TG(3), LALT_T(KC_TAB), RALT_T(KC_BSPC))
 
 // strings
 SUBS(PC_PASS,   "ufan2129_zhouyong", LALT_T(KC_TAB), LCTL_T(KC_SPC))
@@ -90,4 +83,4 @@ COMB(DTRP, DT_PRNT, KC_UNDS,   MY_CBRACS)
 #endif
 
 //// Others ////
-COMB(CAPS_WORD, KC_NO, KC_DOT, KC_QUOT)
+COMB(CAPS_WORD, KC_NO, KC_I, KC_E)

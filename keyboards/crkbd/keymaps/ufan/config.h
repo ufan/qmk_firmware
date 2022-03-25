@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define AUTO_SHIFT_TIMEOUT    135
 #endif
 
-#define TAPPING_TERM 160
+#define TAPPING_TERM 180
 #define TAPPING_TERM_PER_KEY
 #define DYNAMIC_TAPPING_TERM_INCREMENT 15
 
@@ -52,3 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LEADER_TIMEOUT 300
 #define LEADER_PER_KEY_TIMING
 #define LEADER_NO_TIMEOUT
+
+// oled animation, must enable wpm in rules.mk
+// if not defined, only logo show on the right side panel
+/* #define OLED_ANIMATION_ENABLE */
