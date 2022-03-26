@@ -48,14 +48,14 @@ char wpm_str[10];
 /* Custom combination of the shifted keys  */
 const custom_shift_key_t custom_shift_keys[] = {
     {KC_MINS, KC_GRV},
-    {KC_LPRN, KC_RPRN},
-    {KC_LBRC, KC_RBRC},
-    {KC_LCBR, KC_RCBR},
-    {KC_COMM, KC_PIPE},
-    {KC_DOT,  KC_BSLS},
-    {KC_SLSH, KC_TILD},
-    /* {KC_COLN, KC_SCLN}, */
-    {KC_UNDS, KC_AT}
+    {KC_UNDS, KC_AT},
+    {KC_EXLM, KC_LPRN},
+    /* {KC_LBRC, KC_RBRC}, */
+    /* {KC_LCBR, KC_RCBR}, */
+    {KC_COMM, KC_ASTR},
+    {KC_DOT,  KC_TILD},
+    /* {KC_SLSH, KC_RPRN}, */
+    {KC_SCLN, KC_RPRN},
 };
 
 uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
@@ -78,35 +78,36 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERT] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-    KC_MINS,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_UNDS,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-    MY_PARENS,  KC_DOT, LSFT_T(KC_S), LT(3, KC_D), LT(2, KC_F), KC_G,             KC_H, LT(2, KC_J), LT(3, KC_K), RSFT_T(KC_L), KC_QUOT, KC_SCLN,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-    MY_BRACS,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                        KC_N,    KC_M, KC_COMM,  KC_A, KC_SLSH,  MY_CBRACS,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                  KC_LGUI, LALT_T(KC_TAB), LCTL_T(KC_SPC),        RCTL_T(KC_ENT), RALT_T(KC_BSPC), MY_ALT_ESC
-                                      //`--------------------------'  `--------------------------'
-
+    KC_MINS,  KC_Q,  KC_W,         KC_E,        KC_R,        KC_T,             KC_Y,  KC_U,        KC_I,        KC_O,         KC_P,     KC_UNDS,
+    KC_EXLM,  KC_A,  LSFT_T(KC_S), LT(3, KC_D), LT(2, KC_F), KC_G,             KC_H,  LT(2, KC_J), LT(3, KC_K), RSFT_T(KC_L), KC_QUOT,  KC_SCLN,
+    MY_BRACS, KC_Z,  KC_X,         KC_C,        KC_V,        KC_B,             KC_N,  KC_M,        KC_COMM,     KC_DOT,       KC_SLSH,  MY_CBRACS,
+                          KC_LGUI, LALT_T(KC_TAB), LCTL_T(KC_SPC),             RCTL_T(KC_ENT), RALT_T(KC_BSPC), MY_ALT_ESC
   ),
   [_PROGRAM] = LAYOUT_split_3x6_3(
-       XXXXXXX, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, XXXXXXX,
-       XXXXXXX, XXXXXXX, _______, _______, _______, _______,          _______, _______, _______, _______, XXXXXXX, XXXXXXX,
-       XXXXXXX, XXXXXXX, _______, _______, _______, _______,          _______, _______, _______, _______, XXXXXXX, XXXXXXX,
-                                  _______, _______, _______,          _______, _______, _______
+    KC_MINS,  KC_Q,  KC_W,         KC_F,        KC_P,        KC_B,             KC_J,  KC_L,        KC_U,        KC_Y,         KC_QUOT,  KC_UNDS,
+    KC_EXLM,  KC_A,  LSFT_T(KC_R), LT(3, KC_S), LT(2, KC_T), KC_G,             KC_M,  LT(2, KC_N), LT(3, KC_E), RSFT_T(KC_I), KC_O,     KC_SCLN,
+    MY_BRACS, KC_Z,  KC_X,         KC_C,        KC_D,        KC_V,             KC_K,  KC_H,        KC_COMM,     KC_DOT,       KC_SLSH,  MY_CBRACS,
+                          KC_LGUI, LALT_T(KC_TAB), LCTL_T(KC_SPC),             RCTL_T(KC_ENT), RALT_T(KC_BSPC), MY_ALT_ESC
+
   ),
+  /* [_PROGRAM] = LAYOUT_split_3x6_3( */
+  /*      XXXXXXX, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, XXXXXXX, */
+  /*      XXXXXXX, XXXXXXX, _______, _______, _______, _______,          _______, _______, _______, _______, XXXXXXX, XXXXXXX, */
+  /*      XXXXXXX, XXXXXXX, _______, _______, _______, _______,          _______, _______, _______, _______, XXXXXXX, XXXXXXX, */
+  /*                                 _______, _______, _______,          _______, _______, _______ */
+  /* ), */
 
   [_NUM] = LAYOUT_split_3x6_3(
       MY_MAKE,         XXXXXXX, XXXXXXX, KC_PGUP, XXXXXXX, EMACS_SPC_1,         KC_PLUS, KC_7, KC_8, KC_9, KC_MINS, KC_ESC,
       QK_BOOTLOADER,   XXXXXXX, XXXXXXX, KC_PGDN, XXXXXXX, EMACS_SPC_2,         KC_ASTR, KC_4, KC_5, KC_6, KC_SLSH, KC_UP,
-      QK_CLEAR_EEPROM, XXXXXXX, XXXXXXX, CTRL_SHIFT_C, CTRL_SHIFT_V, EMACS_SPC_3,         KC_EQL,  KC_1, KC_2, KC_3, KC_DOT,  KC_DOWN,
+      QK_CLEAR_EEPROM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EMACS_SPC_3,         KC_EQL,  KC_1, KC_2, KC_3, KC_DOT,  KC_DOWN,
                                          _______, EMACS_SPC_4, MY_ALT_ESC,      KC_ENT,  KC_0, KC_BSPC
   ),
 
   [_SYM] = LAYOUT_split_3x6_3(
-     QWERT,   XXXXXXX, MY_COMMENT_SLSH, KC_LABK, KC_RABK, KC_DQUO,        KC_AMPR, KC_CIRC, KC_LCBR, KC_RCBR, XXXXXXX, PROGRAM,
+     QWERT,   XXXXXXX, MY_COMMENT_SLSH, KC_LABK, KC_RABK, KC_PERC,        KC_AMPR, KC_CIRC, KC_LCBR, KC_RCBR, XXXXXXX, PROGRAM,
      KC_CAPS, XXXXXXX, KC_EXLM,         KC_MINS, KC_PLUS, KC_EQL,         KC_PIPE, KC_COLN, KC_LPRN, KC_RPRN, XXXXXXX, KC_LCAP,
-     XXXXXXX, XXXXXXX, MY_COMMENT_ASTR, KC_SLSH, KC_ASTR, KC_BSLS,        KC_TILD, KC_DLR,  KC_LBRC,  KC_RBRC,  XXXXXXX,  XXXXXXX,
+     XXXXXXX, XXXXXXX, MY_COMMENT_ASTR, KC_SLSH, KC_ASTR, KC_BSLS,        KC_HASH, KC_DLR,  KC_LBRC,  KC_RBRC,  XXXXXXX,  XXXXXXX,
                                 _______, MY_NAMESPACE, MY_POINTER,        MY_NEXT_SENT, MY_PROPERTY, _______
   )
 };

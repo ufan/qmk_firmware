@@ -8,21 +8,25 @@ enum {
     TD_L0_CDN,
     TD_L0_SPC1,
     TD_L0_A,
+    TD_L0_I,
 
     TD_L2_P2,
     TD_L2_SWDN_SWRGHT,
     TD_L2_SPC2,
     TD_L2_B,
+    TD_L2_J,
 
     TD_L3_P3,
     TD_L3_PGDN,
     TD_L3_SPC3,
     TD_L3_C,
+    TD_L3_K,
 
     TD_L4_PMNS,
     TD_L4_CW,
     TD_L4_SPC4,
     TD_L4_D,
+    TD_L4_L,
 
     /* Numpad */
     TD_PSLS_NLCK,
@@ -52,21 +56,25 @@ enum {
 #define MYTD_L0_CDN      TD(TD_L0_CDN)
 #define MYTD_L0_SPC1     TD(TD_L0_SPC1)
 #define MYTD_L0_A        TD(TD_L0_A)
+#define MYTD_L0_I        TD(TD_L0_I)
 
 #define MYTD_L2_P2       TD(TD_L2_P2)
 #define MYTD_L2_SWDN_SWRGHT     TD(TD_L2_SWDN_SWRGHT)
 #define MYTD_L2_SPC2     TD(TD_L2_SPC2)
 #define MYTD_L2_B        TD(TD_L2_B)
+#define MYTD_L2_J        TD(TD_L2_J)
 
 #define MYTD_L3_P3       TD(TD_L3_P3)
 #define MYTD_L3_PGDN     TD(TD_L3_PGDN)
 #define MYTD_L3_SPC3     TD(TD_L3_SPC3)
 #define MYTD_L3_C        TD(TD_L3_C)
+#define MYTD_L3_K        TD(TD_L3_K)
 
 #define MYTD_L4_PMNS     TD(TD_L4_PMNS)
 #define MYTD_L4_CW       TD(TD_L4_CW)
 #define MYTD_L4_SPC4     TD(TD_L4_SPC4)
 #define MYTD_L4_D        TD(TD_L4_D)
+#define MYTD_L4_L        TD(TD_L4_L)
 
 /* Numpad */
 #define MYTD_PSLS_NLCK   TD(TD_PSLS_NLCK)

@@ -1,8 +1,8 @@
 MOUSEKEY_ENABLE = yes    # Mouse keys
 RGBLIGHT_ENABLE = no    # Enable WS2812 RGB underlight.
-VIA_ENABLE      = yes    # Enable VIA
+VIA_ENABLE      = no    # Enable VIA
 OLED_ENABLE     = yes
-WPM_ENABLE  	= no  	# needed for oled animation
+WPM_ENABLE  	= yes  	# needed for oled animation
 OLED_DRIVER     = SSD1306
 
 LTO_ENABLE      = yes

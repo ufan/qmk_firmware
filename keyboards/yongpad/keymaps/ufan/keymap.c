@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     EMACS_SPC_1, MYTD_L0_CDN,         MYTD_CPGUP_MBTN4, C(KC_UP),
                     EMACS_SPC_2, MYTD_L2_SWDN_SWRGHT, MYTD_CR_CK_CW,    MYTD_SWUP_SWLEFT,
                     EMACS_SPC_3, MYTD_L3_PGDN,        MYTD_CPGDN_MBTN5, KC_PGUP,
-                    EMACS_SPC_4, MYTD_ZOOM_BROWER,    MYTD_LWIN_ESC,    MY_ALT_ESC),
+                    EMACS_SPC_4, KC_F,                MYTD_LWIN_ESC,    MY_ALT_ESC),
 
     [_PRG] = LAYOUT(/* Programming */
                     _______, _______,
@@ -42,10 +42,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_EXT] = LAYOUT(/* Extra for future usage */
                     _______, _______,
-                    _______, MYTD_L0_A, _______, _______,
-                    _______, MYTD_L2_B, _______, _______,
-                    _______, MYTD_L3_C, _______, _______,
-                    _______, MYTD_L4_D, _______, TG(2)),
+                    KC_M, MYTD_L0_I, KC_E, KC_A,
+                    KC_N, MYTD_L2_J, KC_F, KC_B,
+                    KC_O, MYTD_L3_K, KC_G, KC_C,
+                    KC_P, MYTD_L4_L, KC_H, KC_D),
 };
 
 /* RGB Light Layers */
