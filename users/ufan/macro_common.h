@@ -15,8 +15,6 @@ enum macro_keycodes {
     EMACS_SPC_2,
     EMACS_SPC_3,
     EMACS_SPC_4,
-    CTRL_SHIFT_C,
-    CTRL_SHIFT_V,
     MY_MACRO_END
 };
 
@@ -37,17 +35,6 @@ enum macro_keycodes {
     }                                          \
     break;
 
-#define MACRO_CS_STRING(keycode, flag, string) \
-    case keycode:                                  \
-    if (flag) {               \
-        register_code(KC_LCTL);                \
-        register_code(KC_LALT);                \
-        SEND_STRING(string);                   \
-        unregister_code(KC_LALT);              \
-        unregister_code(KC_LCTL);              \
-    }                                          \
-    break;
-
 #define PROCESS_MACRO(keycode, flag)                            \
     switch (keycode) {                                          \
         MACRO_STR(MY_PASS_PC, flag, "ufan2129_zhouyong")      \
@@ -62,6 +49,4 @@ enum macro_keycodes {
         MACRO_ALTM_STRING(EMACS_SPC_2, flag, "2")             \
         MACRO_ALTM_STRING(EMACS_SPC_3, flag, "3")             \
         MACRO_ALTM_STRING(EMACS_SPC_4, flag, "4")             \
-        MACRO_CS_STRING(CTRL_SHIFT_C, flag, "c")        \
-        MACRO_CS_STRING(CTRL_SHIFT_V, flag, "v")        \
         }

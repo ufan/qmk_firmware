@@ -18,9 +18,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "ufan.h"
+#include "baselayer.h"
 #include "features/caps_word.h"
 #include "features/custom_shift_keys.h"
 
+/* Custom combination of the shifted keys  */
+const custom_shift_key_t custom_shift_keys[] = {
+    // common for all 34-key mapping
+    COMMON_SHIFT_KEYS
+    // corne specific
+    {KC_MINS, KC_GRV},
+    {KC_UNDS, KC_AT},
+    {KC_EXLM, KC_LPRN},
+    {KC_SLSH, KC_RPRN},
+};
+
+#ifdef COMBO_ENABLE
+#include "g/keymap_combo.h"
+#endif
+
+uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 #ifdef ACHORDION_ENABLED
 #include "features/achordion.h"
 #endif
@@ -45,70 +62,43 @@ char wpm_str[10];
 #define MY_TAPPING_TERM TAPPING_TERM
 #endif
 
-/* Custom combination of the shifted keys  */
-const custom_shift_key_t custom_shift_keys[] = {
-    {KC_MINS, KC_GRV},
-    {KC_UNDS, KC_AT},
-    {KC_EXLM, KC_LPRN},
-    /* {KC_LBRC, KC_RBRC}, */
-    /* {KC_LCBR, KC_RCBR}, */
-    {KC_COMM, KC_ASTR},
-    {KC_DOT,  KC_TILD},
-    /* {KC_SLSH, KC_RPRN}, */
-    {KC_SCLN, KC_RPRN},
-};
-
-uint8_t NUM_CUSTOM_SHIFT_KEYS = sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
-
 /* Layers of keymap  */
 enum layer_names {
-  _QWERT,
-  _PROGRAM,
-  _NUM,
-  _SYM,
+    _BASE, // default layout is Colemak-DH
+    _QWERT, // backup layer is QWERT
+    _NUM, // number pad and utility macros
+    _SYM, // symboles and editing-related macros
 };
 
 // base layers
-#define PROGRAM DF(_PROGRAM)
+#define COLEMAK DF(_BASE)
 #define QWERT  DF(_QWERT)
 
-#ifdef COMBO_ENABLE
-#include "g/keymap_combo.h"
-#endif
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  [_BASE] = LAYOUT_split_3x6_3(
+                               KC_MINS,  KL_11,  KL_12,  KL_13,  KL_14,  KL_15,         KR_15,  KR_14,  KR_13,  KR_12,  KR_11,  KC_UNDS,
+                               KC_EXLM,  KL_21,  KL_22,  KL_23,  KL_24,  KL_25,         KR_25,  KR_24,  KR_23,  KR_22,  KR_21,  KC_SLSH,
+                               MY_BRACS, KL_31,  KL_32,  KL_33,  KL_34,  KL_35,         KR_35,  KR_34,  KR_33,  KR_32,  KR_31,  MY_CBRACS,
+                                                       KC_LGUI,  KL_41,  KL_42,         KR_42,  KR_41,  MY_ALT_ESC
+  ),
   [_QWERT] = LAYOUT_split_3x6_3(
     KC_MINS,  KC_Q,  KC_W,         KC_E,        KC_R,        KC_T,             KC_Y,  KC_U,        KC_I,        KC_O,         KC_P,     KC_UNDS,
-    KC_EXLM,  KC_A,  LSFT_T(KC_S), LT(3, KC_D), LT(2, KC_F), KC_G,             KC_H,  LT(2, KC_J), LT(3, KC_K), RSFT_T(KC_L), KC_QUOT,  KC_SCLN,
-    MY_BRACS, KC_Z,  KC_X,         KC_C,        KC_V,        KC_B,             KC_N,  KC_M,        KC_COMM,     KC_DOT,       KC_SLSH,  MY_CBRACS,
-                          KC_LGUI, LALT_T(KC_TAB), LCTL_T(KC_SPC),             RCTL_T(KC_ENT), RALT_T(KC_BSPC), MY_ALT_ESC
+    KC_EXLM,  KC_A,  LSFT_T(KC_S), LT(3, KC_D), LT(2, KC_F), KC_G,             KC_H,  LT(2, KC_J), LT(3, KC_K), RSFT_T(KC_L), KC_QUOT,  KC_SLSH,
+    MY_BRACS, KC_Z,  KC_X,         KC_C,        KC_V,        KC_B,             KC_N,  KC_M,        KC_COMM,     KC_DOT,       KC_SCLN,  MY_CBRACS,
+                                   KC_LGUI,     KL_41,       KL_42,            KR_42, KR_41,       MY_ALT_ESC
   ),
-  [_PROGRAM] = LAYOUT_split_3x6_3(
-    KC_MINS,  KC_Q,  KC_W,         KC_F,        KC_P,        KC_B,             KC_J,  KC_L,        KC_U,        KC_Y,         KC_QUOT,  KC_UNDS,
-    KC_EXLM,  KC_A,  LSFT_T(KC_R), LT(3, KC_S), LT(2, KC_T), KC_G,             KC_M,  LT(2, KC_N), LT(3, KC_E), RSFT_T(KC_I), KC_O,     KC_SCLN,
-    MY_BRACS, KC_Z,  KC_X,         KC_C,        KC_D,        KC_V,             KC_K,  KC_H,        KC_COMM,     KC_DOT,       KC_SLSH,  MY_CBRACS,
-                          KC_LGUI, LALT_T(KC_TAB), LCTL_T(KC_SPC),             RCTL_T(KC_ENT), RALT_T(KC_BSPC), MY_ALT_ESC
-
-  ),
-  /* [_PROGRAM] = LAYOUT_split_3x6_3( */
-  /*      XXXXXXX, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, XXXXXXX, */
-  /*      XXXXXXX, XXXXXXX, _______, _______, _______, _______,          _______, _______, _______, _______, XXXXXXX, XXXXXXX, */
-  /*      XXXXXXX, XXXXXXX, _______, _______, _______, _______,          _______, _______, _______, _______, XXXXXXX, XXXXXXX, */
-  /*                                 _______, _______, _______,          _______, _______, _______ */
-  /* ), */
-
   [_NUM] = LAYOUT_split_3x6_3(
-      MY_MAKE,         XXXXXXX, XXXXXXX, KC_PGUP, XXXXXXX, EMACS_SPC_1,         KC_PLUS, KC_7, KC_8, KC_9, KC_MINS, KC_ESC,
-      QK_BOOTLOADER,   XXXXXXX, XXXXXXX, KC_PGDN, XXXXXXX, EMACS_SPC_2,         KC_ASTR, KC_4, KC_5, KC_6, KC_SLSH, KC_UP,
-      QK_CLEAR_EEPROM, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EMACS_SPC_3,         KC_EQL,  KC_1, KC_2, KC_3, KC_DOT,  KC_DOWN,
-                                         _______, EMACS_SPC_4, MY_ALT_ESC,      KC_ENT,  KC_0, KC_BSPC
+      XXXXXXX, XXXXXXX, LCTL(KC_PLUS), KC_UP,   LCTL(KC_UNDS), EMACS_SPC_1,         KC_PLUS, KC_7, KC_8, KC_9, KC_MINS, XXXXXXX,
+      XXXXXXX, XXXXXXX, KC_LEFT,       KC_DOWN, KC_RGHT,       EMACS_SPC_2,         KC_ASTR, KC_4, KC_5, KC_6, KC_SLSH, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX,       EMACS_SPC_3,         KC_EQL,  KC_1, KC_2, KC_3, KC_DOT,  XXXXXXX,
+                                       _______, EMACS_SPC_4,   KC_BSPC,             KC_ENT,  KC_0, _______
   ),
 
   [_SYM] = LAYOUT_split_3x6_3(
-     QWERT,   XXXXXXX, MY_COMMENT_SLSH, KC_LABK, KC_RABK, KC_PERC,        KC_AMPR, KC_CIRC, KC_LCBR, KC_RCBR, XXXXXXX, PROGRAM,
-     KC_CAPS, XXXXXXX, KC_EXLM,         KC_MINS, KC_PLUS, KC_EQL,         KC_PIPE, KC_COLN, KC_LPRN, KC_RPRN, XXXXXXX, KC_LCAP,
-     XXXXXXX, XXXXXXX, MY_COMMENT_ASTR, KC_SLSH, KC_ASTR, KC_BSLS,        KC_HASH, KC_DLR,  KC_LBRC,  KC_RBRC,  XXXXXXX,  XXXXXXX,
-                                _______, MY_NAMESPACE, MY_POINTER,        MY_NEXT_SENT, MY_PROPERTY, _______
+     XXXXXXX, QWERT,   MY_COMMENT_SLSH, KC_LABK, KC_RABK, KC_PERC,        KC_AMPR, KC_CIRC, KC_LCBR, KC_RCBR, COLEMAK, XXXXXXX,
+     XXXXXXX, KC_GRV,  KC_EXLM,         KC_MINS, KC_PLUS, KC_EQL,         KC_PIPE, KC_COLN, KC_LPRN, KC_RPRN, KC_AT,   XXXXXXX,
+     XXXXXXX, XXXXXXX, MY_COMMENT_ASTR, KC_SLSH, KC_ASTR, KC_BSLS,        KC_HASH, KC_DLR,  KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX,
+                               _______, MY_NAMESPACE, MY_POINTER,         MY_NEXT_SENT, MY_PROPERTY, _______
   )
 };
 
@@ -135,7 +125,7 @@ void render_status(void) {
         case _QWERT:
             oled_write_P(PSTR("QWERT "), false);
             break;
-        case _PROGRAM:
+        case _BASE:
             oled_write_P(PSTR("PRGAM "), false);
             break;
     }
@@ -281,13 +271,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   /*     } */
   /*     break; */
     }
-
-  // show keycode in oled
-/* #ifndef KEYLOG_ENABLED */
-/*   if (record->event.pressed) { */
-/*     set_keylog(keycode, record); */
-/*   } */
-/* #endif */
 
   return true;
 }

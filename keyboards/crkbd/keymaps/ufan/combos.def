@@ -3,82 +3,71 @@
 
 //// Right Hand ////
 
-// General
-COMB(JK_ESC,     KC_ESC,     LT(2, KC_J), LT(3, KC_K))
-
-// Buffer or Terminal navigation
-COMB(WORD_FWD,   A(KC_F),    KC_M, KC_COMM)
-COMB(WORD_BKD,   A(KC_B),    KC_U, KC_I)
-COMB(LINE_BGN,   C(KC_A),    KC_H, LT(2, KC_J))
-COMB(LINE_END,   C(KC_E),    LT(3, KC_K), RSFT_T(KC_L))
-
-COMB(ARROW_LEFT,  KC_LEFT,  KC_N, KC_M)
-COMB(ARROW_RIGHT, KC_RIGHT, KC_Y, KC_U)
-COMB(ARROW_UP,    KC_UP,    KC_I, KC_O)
-COMB(ARROW_DOWN,  KC_DOWN, KC_COMM, KC_DOT)
+// ESC
+COMB(JK_ESC,     KC_ESC,    KR_24, KR_23)
 
 // PC workspace navigation
-COMB(WKSPC_UP,   C(KC_UP),   KC_P, KC_UNDS)
-COMB(WKSPC_DOWN, C(KC_DOWN), KC_SLSH, MY_CBRACS)
+COMB(WKSPC_UP,   C(KC_UP),  KR_12, KR_11)
+COMB(WKSPC_DOWN, C(KC_DOWN),KR_32, KR_31)
 
-COMB(WINDOW_UP,    SWIN(KC_UP),    KC_O,    KC_P)
-COMB(WINDOW_DOWN,  SWIN(KC_DOWN),  KC_DOT,    KC_SLSH)
-COMB(WINDOW_LEFT,  SWIN(KC_LEFT),  RSFT_T(KC_L),    KC_QUOT)
-COMB(WINDOW_RIGHT, SWIN(KC_RIGHT), KC_SCLN, KC_QUOT)
+// Move active window to different workspace
+COMB(WINDOW_UP,    SWIN(KC_UP),    KR_13, KR_12)
+COMB(WINDOW_DOWN,  SWIN(KC_DOWN),  KR_33, KR_32)
+COMB(WINDOW_LEFT,  SWIN(KC_LEFT),  KR_23, KR_22)
+COMB(WINDOW_RIGHT, SWIN(KC_RIGHT), KR_22, KR_21)
+
+// WIN key
+COMB(LGUI,    KC_LGUI,    KR_15, KR_14)
+
+// F11 for fullscreen
+COMB(F11,    KC_F11,      KR_35, KR_34)
+
+// Symbols (3)
+COMB(UNDERSCORE,    KC_UNDS,     KR_14, KR_13)
+
 
 //// Left Hand ////
 
-// WIN key
-COMB(LGUI,    KC_LGUI,    KC_R, KC_T)
-
-// F11 for fullscreen
-COMB(F11,    KC_F11,    KC_MINS, KC_Q)
-
-// vim: zz, zt, zb
-SUBS(ZZ,  "zz",  LT(3,         KC_D), LT(2, KC_F))
-SUBS(ZT,  "zt", KC_E,         KC_R)
-SUBS(ZB, "zb", KC_V,         KC_C)
-
 // Browser navigation
-COMB(PG_UP,      KC_PGUP,    KC_W, KC_E)
-COMB(PG_DOWN,    KC_PGDN,    KC_X, KC_C)
+COMB(PG_UP,      KC_PGUP,    KL_12, KL_13)
+COMB(PG_DOWN,    KC_PGDN,    KL_32, KL_33)
 
-COMB(TAB_FWD,     C(KC_PGDN), LSFT_T(KC_S), LT(3,  KC_D))
-COMB(TAB_BKD,     C(KC_PGUP), LSFT_T(KC_S),    KC_A)
-COMB(HISTORY_BKD, KC_MS_BTN4, KC_W,      KC_Q)
-COMB(HISTORY_FWD, KC_MS_BTN5, KC_X,     KC_Z)
+COMB(TAB_FWD,     C(KC_PGDN), KL_22, KL_23)
+COMB(TAB_BKD,     C(KC_PGUP), KL_21, KL_22)
+COMB(HISTORY_BKD, KC_MS_BTN4, KL_11, KL_12)
+COMB(HISTORY_FWD, KC_MS_BTN5, KL_31, KL_32)
+
+// Zoom in/out
+COMB(ZOOM_IN,     C(KC_PLUS), KL_14, KL_15)
+COMB(ZOOM_OUT,    C(KC_UNDS), KL_34, KL_35)
+
+// Symbols (4)
+COMB(MINUS,       KC_MINS,    KL_13, KL_14)
+COMB(COLON,       KC_COLN,    KL_23, KL_24)
 
 //// Thumb-Row ////
 
-// layer toggle
-COMB(TG_L2, TG(2), LCTL_T(KC_SPC), RCTL_T(KC_ENT))
-COMB(TG_L3, TG(3), LALT_T(KC_TAB), RALT_T(KC_BSPC))
+// Toggle layer
+COMB(TG_L2,    TG(2),    KL_42, KR_42)
+COMB(TG_L3,    TG(3),    KL_41, KR_41)
 
-// strings
-SUBS(PC_PASS,   "ufan2129_zhouyong", LALT_T(KC_TAB), LCTL_T(KC_SPC))
-SUBS(BITWARDEN, "Ufan@Bitw_0532",    RALT_T(KC_BSPC), RCTL_T(KC_ENT))
+// Strings
+SUBS(PC_PASS,   "ufan2129_zhouyong", KL_41, KL_42)
+SUBS(BITWARDEN, "Ufan@Bitw_0532",    KR_41, KR_42)
 
 //// Colume-Combo ////
 
-// reset and flash usage
-COMB(MAKE_FLASH, MY_MAKE, KC_T, KC_G)
-COMB(CLEAR_EEPROM, QK_CLEAR_EEPROM, KC_T, KC_B)
-COMB(BOOTLOADER,   QK_BOOTLOADER,   KC_G, KC_B)
-
-// auto-shift adjust
-#ifdef AUTO_SHIFT_ENABLE
-COMB(ASDN,      KC_ASDN,                KC_LPRN,         KC_LBRC)
-COMB(ASUP,      KC_ASUP,                KC_LPRN,         KC_MINS)
-COMB(ASRP,      KC_ASRP,                KC_LBRC,         KC_MINS)
-COMB(ASTG,      KC_ASTG,                KC_X,            KC_Z)
-#endif
+// Firmware related
+COMB(MAKE_FLASH,   MY_MAKE,         KL_15, KL_25)
+COMB(CLEAR_EEPROM, QK_CLEAR_EEPROM, KL_15, KL_35)
+COMB(BOOTLOADER,   QK_BOOTLOADER,   KL_25, KL_35)
 
 // tap term adjust
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
-COMB(DTDN, DT_DOWN, MY_CBRACS, KC_SCLN)
-COMB(DTUP, DT_UP,   KC_UNDS,   KC_SCLN)
-COMB(DTRP, DT_PRNT, KC_UNDS,   MY_CBRACS)
+COMB(DTDN,   DT_DOWN,      KL_21, KL_31)
+COMB(DTUP,   DT_UP,        KL_11, KL_21)
+COMB(DTRP,   DT_PRNT,      KL_11, KL_31)
 #endif
 
 //// Others ////
-COMB(CAPS_WORD, KC_NO, KC_I, KC_E)
+COMB(CAPS_WORD,    KC_NO,    KL_13, KR_13)
