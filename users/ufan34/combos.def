@@ -1,0 +1,73 @@
+// name     result      chord_keys //
+/////////////////////////////////////
+
+//// Right Hand ////
+
+// ESC
+COMB(JK_ESC,     KC_ESC,    KR_24, KR_23)
+
+// PC workspace navigation
+COMB(WKSPC_UP,   C(KC_UP),  KR_12, KR_11)
+COMB(WKSPC_DOWN, C(KC_DOWN),KR_32, KR_31)
+
+// Move active window to different workspace
+COMB(WINDOW_UP,    SWIN(KC_UP),    KR_13, KR_12)
+COMB(WINDOW_DOWN,  SWIN(KC_DOWN),  KR_33, KR_32)
+COMB(WINDOW_LEFT,  SWIN(KC_LEFT),  KR_23, KR_22)
+COMB(WINDOW_RIGHT, SWIN(KC_RIGHT), KR_22, KR_21)
+
+// WIN key
+COMB(LGUI,    KC_LGUI,    KR_15, KR_14)
+
+// F11 for fullscreen
+COMB(F11,    KC_F11,      KR_35, KR_34)
+
+// Symbols (3)
+COMB(UNDERSCORE,    KC_UNDS,     KR_14, KR_13)
+
+
+//// Left Hand ////
+
+// Browser navigation
+COMB(PG_UP,      KC_PGUP,    KL_12, KL_13)
+COMB(PG_DOWN,    KC_PGDN,    KL_32, KL_33)
+
+COMB(TAB_FWD,     C(KC_PGDN), KL_22, KL_23)
+COMB(TAB_BKD,     C(KC_PGUP), KL_21, KL_22)
+COMB(HISTORY_BKD, KC_MS_BTN4, KL_11, KL_12)
+COMB(HISTORY_FWD, KC_MS_BTN5, KL_31, KL_32)
+
+// Zoom in/out
+COMB(ZOOM_IN,     C(KC_PLUS), KL_14, KL_15)
+COMB(ZOOM_OUT,    C(KC_UNDS), KL_34, KL_35)
+
+// Symbols (4)
+COMB(MINUS,       KC_MINS,    KL_13, KL_14)
+COMB(COLON,       KC_COLN,    KL_23, KL_24)
+
+//// Thumb-Row ////
+
+// Toggle layer
+COMB(TG_L2,    TG(2),    KL_42, KR_42)
+COMB(TG_L3,    TG(3),    KL_41, KR_41)
+
+// Strings
+SUBS(PC_PASS,   "ufan2129_zhouyong", KL_41, KL_42)
+SUBS(BITWARDEN, "Ufan@Bitw_0532",    KR_41, KR_42)
+
+//// Colume-Combo ////
+
+// Firmware related
+COMB(MAKE_FLASH,   MY_MAKE,         KL_15, KL_25)
+COMB(CLEAR_EEPROM, QK_CLEAR_EEPROM, KL_15, KL_35)
+COMB(BOOTLOADER,   QK_BOOTLOADER,   KL_25, KL_35)
+
+// tap term adjust
+#ifdef DYNAMIC_TAPPING_TERM_ENABLE
+COMB(DTDN,   DT_DOWN,      KL_21, KL_31)
+COMB(DTUP,   DT_UP,        KL_11, KL_21)
+COMB(DTRP,   DT_PRNT,      KL_11, KL_31)
+#endif
+
+//// Others ////
+COMB(CAPS_WORD,    KC_NO,    KL_13, KR_13)
