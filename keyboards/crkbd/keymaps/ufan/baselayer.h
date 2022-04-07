@@ -27,7 +27,7 @@
 #define KL_34 KC_D
 #define KL_35 KC_V
 #define KL_41 LALT_T(KC_TAB)
-#define KL_42 LCTL_T(KC_ENT)
+#define KL_42 LCTL_T(KC_SPC)
 
 #define KR_15 KC_J
 #define KR_14 KC_L
@@ -44,7 +44,7 @@
 #define KR_33 KC_COMM
 #define KR_32 KC_DOT
 #define KR_31 KC_SCLN
-#define KR_42 RCTL_T(KC_SPC)
+#define KR_42 RCTL_T(KC_ENT)
 #define KR_41 RALT_T(KC_BSPC)
 
 #define COMMON_SHIFT_KEYS {KC_COMM, KC_EXLM},   \
