@@ -8,7 +8,6 @@ LTO_ENABLE = yes 			# Link time optimization to reduce firmware size
 AUDIO_ENABLE = no           # Audio output
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
-VIA_ENABLE      = no    # Enable VIA
 
 NKRO_ENABLE = yes
 COMBO_ENABLE = yes
