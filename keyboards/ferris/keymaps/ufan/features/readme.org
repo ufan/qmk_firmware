@@ -1,0 +1,3 @@
+- caps_word :: [[https://getreuer.info/posts/keyboards/caps-word/index.html#activate-caps-word-with-a-combo]]
+- custom_shift ::
+- achordion :: https://getreuer.info/posts/keyboards/achordion/index.html
