@@ -3,10 +3,6 @@
 /* Custom Macros */
 enum macro_keycodes {
     MY_MACRO_BEGIN = SAFE_RANGE,
-    MY_PASS_PC,
-    MY_PASS_ROUTER,
-    MY_PASS_BITWARDEN,
-    MY_PASS_GOOGLE,
     MY_EMAIL_FOX,
     MY_EMAIL_GOOGLE,
     MY_EMAIL_PRIVATE,
@@ -37,10 +33,6 @@ enum macro_keycodes {
 
 #define PROCESS_MACRO(keycode, flag)                            \
     switch (keycode) {                                          \
-        MACRO_STR(MY_PASS_PC, flag, "ufan2129_zhouyong")      \
-        MACRO_STR(MY_PASS_ROUTER, flag, "yong_router405")     \
-        MACRO_STR(MY_PASS_BITWARDEN, flag, "Ufan@Bitw_0532")  \
-        MACRO_STR(MY_PASS_GOOGLE, flag, "W0L0veZiY0u!_0532")  \
         MACRO_STR(MY_EMAIL_FOX, flag, "zyong06@foxmail.com")  \
         MACRO_STR(MY_EMAIL_GOOGLE, flag, "zyong06@gmail.com") \
         MACRO_STR(MY_EMAIL_PRIVATE, flag, "yong@ufan.site")   \
